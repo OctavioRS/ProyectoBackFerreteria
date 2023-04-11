@@ -1,19 +1,23 @@
 class ProductManager {
-    constructor(products = []) {
-      this.products = products;
+    constructor() {
+      this.products = [];
       this.nextId = 1;
     }
   
-    addProduct(product) {
-      if (!product.title || !product.description || !product.price || !product.thumbnail || !product.stock) {
-        console.error("Error: missing fields");
-        return;
-      }
+    addProduct(title, description, price, thumbnail, stock) {
+      const product = {
+        id: this.nextId,
+        title,
+        description,
+        price,
+        thumbnail,
+        stock
+      };
       if (this.products.some(p => p.id === product.id)) {
         console.error("Error: product with same id already exists");
         return;
       }
-      product.id = this.nextId;
+     
       this.products.push(product);
       this.nextId++;
     }
@@ -31,4 +35,14 @@ class ProductManager {
     }
   }
   
+
+const productManager = new ProductManager();
+
+productManager.addProduct('remera', 'ideal para deportes', '100', 'http://remera.com', '2');
+console.log(productManager.getProducts());
+
+productManager.addProduct('gorra', 'marca Vans', '200', 'http://gorra.com', '5');
+console.log(productManager.getProducts());
+console.log(productManager.getProductById(1))
+
 
