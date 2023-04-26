@@ -4,7 +4,7 @@
   "description": "",
   "main": "clases.js",
   "scripts": {
-    "start:express": "node app.js"
+    "start:express": "node src/app.js"
   },
   "repository": {
     "type": "git",

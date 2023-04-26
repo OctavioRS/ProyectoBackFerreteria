@@ -83,9 +83,19 @@ class ProductManager {
       console.log(error);
     }
   }
-}
 
-const productManager = new ProductManager();
+  async deleteAllProducts (){
+    try {
+      if(fs.existsSync(this.path)){
+        await fs.promises.unlink(this.path)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+module.exports = ProductManager;
+/*const productManager = new ProductManager();
 
 const test = async() => {
     const get = await productManager.getProducts();
@@ -103,7 +113,7 @@ const test = async() => {
 
 test()
 
-module.exports = ProductManager;
+
 
 //const product2 = await productManager.getProducts();
 //console.log(product2);
@@ -113,4 +123,4 @@ module.exports = ProductManager;
 
 //await productManager.updateProduct({ title: "Producto actualizado", price: 15 });
 
-
+*/
