@@ -103,6 +103,7 @@ const test = async() => {
 
 test()
 
+module.exports = ProductManager;
 
 //const product2 = await productManager.getProducts();
 //console.log(product2);
