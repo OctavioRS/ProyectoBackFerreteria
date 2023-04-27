@@ -1,28 +1,27 @@
 const express = require("express");
-const ProductManager = require("./ProductManager.js");
+const ProductManager = require("./ProductManager");
 
 const app = express();
 const port = 3000;
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-const productManager = new ProductManager();
+const productManager = new ProductManager('./productos.json');
 
 app.get("/products", async (req, res) => {
   try {
-    const products = await productManager.getProducts();
-    res.status(200).json(products)
-    const limit = req.query.limit;
+    const limit = req.query.limit; 
+    let products = await productManager.getProducts();
     if (limit) {
-      res.send(products.slice(0, limit));
-    } else {
-      res.send(products);
+      products = products.slice(0, limit);
     }
+    res.status(200).json({ products });
   } catch (error) {
     console.error(error);
-    res.status(404).json({message: error.message})
+    res.status(500).send("Product not found");
   }
 });
+
 
 app.get("/products/:id", async (req, res) => {
   try {

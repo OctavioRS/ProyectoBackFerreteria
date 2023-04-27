@@ -1,19 +1,15 @@
 const fs = require("fs");
 class ProductManager {
-  constructor() {
-    this.path = "./productos.json";
+  constructor(path) {
+    this.path = path;
     this.nextId = 1;
   }
 
-  async addProduct(title, description, price, thumbnail, stock) {
+  async addProduct(prod) {
     try {
       const product = {
         id: this.nextId,
-        title,
-        description,
-        price,
-        thumbnail,
-        stock,
+        ...prod
       };
       const products = await this.getProducts();
       if (products.some((p) => p.id === product.id)) {
@@ -24,6 +20,7 @@ class ProductManager {
       products.push(product);
       await fs.promises.writeFile(this.path, JSON.stringify(products));
       this.nextId++;
+      return product
     } catch (error) {
       console.log(error);
     }
