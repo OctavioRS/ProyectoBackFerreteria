@@ -1,4 +1,4 @@
-const fs = require("fs");
+import fs from "fs";
 class ProductManager {
   constructor(path) {
     this.path = path;
@@ -40,16 +40,18 @@ class ProductManager {
     }
   }
 
-  async getProductById(id) {
+  async getProductById(pid) {
     const products = await this.getProducts();
-    const product = products.find((p) => p.id === id);
+    const product = products.find((p) => p.id === pid);
     if (!product) {
       console.error("Error: product not found");
       return {};
+      
     }
     return product;
+   
   }
-
+ 
   async updateProduct(updatedProduct , id){
     try {
       const products = await this.getProducts();
@@ -91,7 +93,7 @@ class ProductManager {
     }
   }
 }
-module.exports = ProductManager;
+export default ProductManager;
 /*const productManager = new ProductManager();
 
 const test = async() => {

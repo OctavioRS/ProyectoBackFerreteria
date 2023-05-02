@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "clases.js",
+  "type": "module",
   "scripts": {
     "start:express": "node src/app.js"
   },
