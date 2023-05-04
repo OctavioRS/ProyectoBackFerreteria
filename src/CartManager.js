@@ -8,26 +8,29 @@ class CartManager {
 
     async addCart() {
         try {
-            
+            const carts = await this.getCarts();
+            let maxId = 0;
+            carts.forEach((cart) => {
+                if (cart.id > maxId) {
+                    maxId = cart.id;
+                }
+            });
+    
+            const newId = maxId + 1;
             const product = {
-                id: this.nextId,
+                id: newId,
                 products: []
             }
-            const carts = await this.getCarts();
-            if (carts.some((p) => p.id === product.id)) {
-                console.error("Error: product with same id already exists");
-                return;
-
-            }
+    
             carts.push(product);
             await fs.promises.writeFile(this.path, JSON.stringify(carts));
-            this.nextId++;
+            this.nextId = newId + 1;
             return carts;
         } catch (error) {
             console.log(error);
         }
     }
-
+    
 
     async getCarts() {
         try {
@@ -55,25 +58,34 @@ class CartManager {
     }
     }
     
-    async saveProductToCart(cid, pid) {
-        const cart = await this.getCartById(cid);
-        if (cart) {
-          const prodExist = cart.products.find((p) => p.product === pid);
-          if (prodExist) {
-            prodExist.quantity++;
-          } else {
-            cart.products.push({
-              product: pid,
-              quantity: 1
-            });
-          }
-          await fs.promises.writeFile(this.path, JSON.stringify(await this.getCarts()));
-          return cart;
-        } else {
-          throw new Error("Error: cart not found");
+    async saveCarts(carts) {
+        try {
+          await fs.promises.writeFile(this.path, JSON.stringify(carts));
+        } catch (error) {
+          console.log(error);
         }
       }
-      
     
-}
+      async saveProductToCart(cid, pid) {
+        try {
+          const carts = await this.getCarts();
+          const cartIndex = carts.findIndex((c) => c.id === cid);
+          if (cartIndex >= 0) {
+            const cart = carts[cartIndex];
+            const prodIndex = cart.products.findIndex((p) => p.product === pid);
+            if (prodIndex >= 0) {
+              cart.products[prodIndex].quantity++;
+            } else {
+              cart.products.push({ product: pid, quantity: 1 });
+            }
+            await this.saveCarts(carts);
+            return cart;
+          } else {
+            throw new Error("Error: cart not found");
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
 export default CartManager;
