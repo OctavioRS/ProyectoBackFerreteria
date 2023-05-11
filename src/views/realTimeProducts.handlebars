@@ -1,12 +1,37 @@
-<h2>Socket client</h2>
-
 <form id="form">
+    
     <label>Product:</label><input type="text" name="name" id="name">
+    <label>Description:</label><input type="text" name="description" id="description">
     <label>Price:</label><input type="text" name="price" id="price">
     <input type="submit" value="SEND">
 </form>
 
-<p id="products"></p>
+<h1>Lista de Productos</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Precio</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each products}}
+          <tr>
+            <td>{{this.id}}</td>
+            <td>{{this.title}}</td>
+            <td>{{this.description}}</td>
+            <td>{{this.price}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+<table>
+  <tbody id="productTable">
+        
+      </tbody>
+    </table>
 
 <script src="socket.io/socket.io.js"></script>
 <script src="js/index.js"></script>

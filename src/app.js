@@ -4,9 +4,10 @@ import cartRoute from './routes/cart.router.js'
 import handlebars from "express-handlebars"
 import { __dirname } from "./path.js"
 import path from "path"
-
 import viewsRouter from './routes/views.router.js'
 import { Server } from 'socket.io'
+import ProductManager from "./ProductManager.js";
+const productManager = new ProductManager('../productos.json');
 
 const app = express();
 const port = 8080;
@@ -22,9 +23,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'handlebars')
 app.use('/', viewsRouter)
 
-app.get('/', (req, res) => {
-  res.render('websockets')
-});
 
 const httpServer = app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
@@ -32,18 +30,15 @@ const httpServer = app.listen(port, () => {
 
 const socketServer = new Server(httpServer)
 
-socketServer.on('connection', (socket) =>{
-    console.log('usuario conectado!', socket.id);
-    socket.on('disconnect', ()=>{
-        console.log('usuario desconectado!');
-    });
+socketServer.on("connection", (socket) => {
+  console.log(`Client connected: ${socket.id}`);
+
+  socket.on('newProduct', async (obj) => {
+    await productManager.addProduct(obj);
     
-    socketServer.emit('arrayProducts', arrayProducts);
-   
-    socket.on('newProduct', (obj) => {
-        arrayProducts.push(obj);
-        socketServer.emit('arrayProducts', arrayProducts);  
-       
-    })
-});
+    socketServer.emit('arrayProducts', await productManager.getProducts());  
+  });
+})
+
+
 
