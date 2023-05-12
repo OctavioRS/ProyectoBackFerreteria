@@ -5,11 +5,18 @@ class ProductManager {
     this.nextId = 1;
   }
 
-  async addProduct(prod) {
+  async addProduct({ title, description, code, price, status, stock, category, thumbnails }) {
     try {
       const product = {
         id: this.nextId,
-        ...prod
+        title,
+        description,
+        code,
+        price,
+        status,
+        stock,
+        category,
+        thumbnails
       };
       const products = await this.getProducts();
       if (products.some((p) => p.id === product.id)) {

@@ -34,11 +34,20 @@ socketServer.on("connection", (socket) => {
   console.log(`Client connected: ${socket.id}`);
 
   socket.on('newProduct', async (obj) => {
-    await productManager.addProduct(obj);
+    await productManager.addProduct(obj.name, obj.price, obj.description );
+    const products = await productManager.getProducts();
     
-    socketServer.emit('arrayProducts', await productManager.getProducts());  
+    socketServer.emit('arrayProducts', products);  
   });
-})
 
+
+socket.on('deleteProduct', async (id) => {
+  await productManager.deleteProduct(id);
+  const products = await productManager.getProducts();
+  socketServer.emit('deleteProduct', id);
+  socketServer.emit('getProducts', products);
+});
+
+});
 
 
