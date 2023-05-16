@@ -1,46 +1,60 @@
-const socketClient = io()
+const socketClient = io();
+
 const form = document.getElementById('form');
-const inputName = document.getElementById('name');
+const inputTitle = document.getElementById('title');
 const inputPrice = document.getElementById('price');
 const inputDescription = document.getElementById('description');
-const inputId = document.getElementById('id')
-const productTable = document.getElementById('productTable')
+const productTable = document.getElementById('productTable');
+
 
 form.onsubmit = (e) => {
     e.preventDefault();
-    const name = inputName.value;
+    const title = inputTitle.value;
     const price = inputPrice.value;
     const description = inputDescription.value;
 
-    socketClient.emit('newProduct', { name, price, description });
+    socketClient.emit('newProduct', { title, price, description });
 }
+
 
 socketClient.on('arrayProducts', (array) => {
     productTable.innerHTML = '';
-    array.forEach(p => {
-        const row = document.createElement('tr');
-        const nameCell = document.createElement('td');
-        const descriptionCell = document.createElement('td');
-        const priceCell = document.createElement('td');
-
-
-        nameCell.innerText = p.name;
-        descriptionCell.innerText = p.description;
-        priceCell.innerText = p.price;
-
-
-        row.appendChild(nameCell);
-        row.appendChild(descriptionCell);
-        row.appendChild(priceCell);
-
-        productTable.appendChild(row);
+    array.forEach((p) => {
+      const row = document.createElement('tr');
+      const idCell = document.createElement('td');
+      const titleCell = document.createElement('td');
+      const descriptionCell = document.createElement('td');
+      const priceCell = document.createElement('td');
+      const deleteCell = document.createElement('td');
+  
+      idCell.innerText = p.id;
+      titleCell.innerText = p.title;
+      descriptionCell.innerText = p.description;
+      priceCell.innerText = p.price;
+  
+      const deleteButton = document.createElement('button');
+      deleteButton.innerText = 'Eliminar';
+      deleteButton.addEventListener('click', () => {
+        socketClient.emit('deleteProduct', p.id); 
+      });
+  
+      deleteCell.appendChild(deleteButton);
+  
+      row.appendChild(idCell);
+      row.appendChild(titleCell);
+      row.appendChild(descriptionCell);
+      row.appendChild(priceCell);
+      row.appendChild(deleteCell);
+  
+      productTable.appendChild(row);
     });
-
-
+  
     socketClient.on('deleteProduct', (id) => {
-        const productElement = document.getElementById(id);
-        if (productElement) {
-            productElement.remove();
+        const productRow = [...productTable.rows].find((row) => row.cells[0].innerText === String(id));
+        if (productRow) {
+          productRow.remove();
         }
-    });
-});
+      });
+      
+  });
+  

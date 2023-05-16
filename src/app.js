@@ -7,6 +7,7 @@ import path from "path"
 import viewsRouter from './routes/views.router.js'
 import { Server } from 'socket.io'
 import ProductManager from "./ProductManager.js";
+
 const productManager = new ProductManager('../productos.json');
 
 const app = express();
@@ -33,20 +34,25 @@ const socketServer = new Server(httpServer)
 socketServer.on("connection", (socket) => {
   console.log(`Client connected: ${socket.id}`);
 
-  socket.on('newProduct', async (obj) => {
-    await productManager.addProduct(obj.name, obj.price, obj.description );
-    const products = await productManager.getProducts();
-    
-    socketServer.emit('arrayProducts', products);  
+
+
+socket.on('newProduct', async (obj) => {
+  await productManager.addProduct({
+    title: obj.title,
+    description: obj.description,
+    price: obj.price,
   });
+  const products = await productManager.getProducts();
+  socketServer.emit('arrayProducts', products);
+});
 
 
 socket.on('deleteProduct', async (id) => {
   await productManager.deleteProduct(id);
   const products = await productManager.getProducts();
-  socketServer.emit('deleteProduct', id);
-  socketServer.emit('getProducts', products);
+  socketServer.emit('arrayProducts', products);
 });
+
 
 });
 

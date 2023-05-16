@@ -2,13 +2,28 @@ import fs from "fs";
 class ProductManager {
   constructor(path) {
     this.path = path;
-    this.nextId = 1;
   }
+
+  async sumarId() {
+    try {
+        let id = 0;
+        const products = await this.getProducts();
+        products.map(product => {
+            if (product.id > id) {
+                id = product.id;
+            }
+        });
+        return id + 1;
+    } catch (error) {
+        console.log(error);
+    }
+}
 
   async addProduct({ title, description, code, price, status, stock, category, thumbnails }) {
     try {
+      const products = await this.getProducts();
       const product = {
-        id: this.nextId,
+        id: await this.sumarId(),
         title,
         description,
         code,
@@ -18,7 +33,7 @@ class ProductManager {
         category,
         thumbnails
       };
-      const products = await this.getProducts();
+      
       if (products.some((p) => p.id === product.id)) {
         console.error("Error: product with same id already exists");
         return;
@@ -26,8 +41,8 @@ class ProductManager {
 
       products.push(product);
       await fs.promises.writeFile(this.path, JSON.stringify(products));
-      this.nextId++;
-      return product
+      
+      
     } catch (error) {
       console.log(error);
     }
