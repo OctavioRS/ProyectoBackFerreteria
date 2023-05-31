@@ -1,0 +1,24 @@
+<form id="formMsg">
+
+  <label>User:</label><input type="text" name="user" id="user">
+  <label>Mensaje:</label><input type="text" name="mensaje" id="mensaje">
+  <input type="submit" value="SEND">
+</form>
+
+<h1>Chat</h1>
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Mensaje</th>
+    </tr>
+  </thead>
+
+<table>
+  <tbody id="msgTable">
+
+  </tbody>
+</table>
+
+<script src="socket.io/socket.io.js"></script>
+<script src="js/msg.js"></script>
