@@ -9,6 +9,7 @@ import { Server } from 'socket.io'
 import ProductManager from "./daos/filesystem/ProductManager.js";
 import productmongoRouter from './routes/productsmongo.routes.js'
 import messagemongoRouter from './routes/messagesmongo.routes.js'
+import cartsmongoRouter from './routes/cartsmongo.routes.js'
 
 import './db/database.js'
 
@@ -31,7 +32,7 @@ app.use('/', viewsRouter)
 
 app.use('/products', productmongoRouter)
 app.use('/messages', messagemongoRouter)
-
+app.use('/carts', cartsmongoRouter)
 
 const httpServer = app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
