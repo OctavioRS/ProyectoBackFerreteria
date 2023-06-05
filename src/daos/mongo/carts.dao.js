@@ -31,7 +31,7 @@ class CartsDaoMongoDB {
         }
     }
 
-    async addProductToCart (cid, pid) {
+    async addProductToCart(cid, pid) {
         try {
             const cart = await cartsModel.findById(cid);
             if (cart) {
@@ -56,6 +56,23 @@ class CartsDaoMongoDB {
         }
     };
 
+    async deleteProductCart(cid, pid) {
+        try {
+            const cart = await cartsModel.findById(cid);
+            console.log(cart);
+            if (cart) {
+                cart.product = cart.product.filter((product) => product._id.toString() !== pid.toString());
+                await cart.save();
+                return cart;
+            } else {
+                throw new Error("Error: cart not found");
+            }
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+    
 }
 
 export default CartsDaoMongoDB

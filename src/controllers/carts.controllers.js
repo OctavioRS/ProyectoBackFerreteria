@@ -2,7 +2,8 @@ import {
     getCartService,
     getCartByIdService,
     createCartService,
-    addProductToCartService
+    addProductToCartService,
+    deleteProductCartService
 } from '../services/carts.services.js'
 
 export const getCartsController = async (req, res, next) => {
@@ -16,7 +17,8 @@ export const getCartsController = async (req, res, next) => {
 
 export const getCartByIdController = async (req, res, next) => {
     try {
-        const docs = await getCartByIdService(Number(cid))
+        const { cid } = req.params
+        const docs = await getCartByIdService(cid)
         res.json(docs)
     } catch (error) {
         next(error)
@@ -40,4 +42,14 @@ export const addProductToCartController = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-};
+}
+
+export const deleteProductCartController = async (req, res, next) => {
+    try {
+        const { cid, pid } = req.params;
+        const product = await deleteProductCartService(cid, pid);
+        res.json(product)
+    } catch (error) {
+        next(error);
+    }
+}

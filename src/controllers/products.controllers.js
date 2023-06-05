@@ -8,9 +8,35 @@ import {
 
 export const getController = async (req, res, next) => {
     try {
-     const docs = await getServices();
-     res.json(docs);
+      const { page , limit, category , availability  } = req.query
+     const docs = await getServices(page , limit, category, availability);
+     
+     console.log(docs)
+     //res.json(docs);
+     const status = "succes"
+     const payload = docs.docs
+     const totalPages = docs.totalPages
+     const prevPage = docs.prevPage
+     const nextPage = docs.nextPage
+     const currentpage = docs.page
+     const hasPrevPage = docs.hasPrevPage
+     const hasNextPage = docs.hasNextPage
+     const prevLink = hasPrevPage ? `http://localhost:8080/products?page=${docs.hasPrevPage}` : null
+     const nextLink = hasNextPage ? `http://localhost:8080/products?page=${docs.hasNextPage}` : null
+     res.json({
+      status,
+      payload,
+      totalPages,
+      prevPage,
+      nextPage,
+      currentpage,
+      hasPrevPage,
+      hasNextPage,
+      prevLink,
+      nextLink
+     })
     } catch (error) {
+      const status = "error"
       next(error);
     }
   };

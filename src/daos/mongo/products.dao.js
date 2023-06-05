@@ -11,16 +11,24 @@ class ProductDaoMongoDB {
         console.log(error);
       }
     }
-  
-    async getProducts() {
+    async getProducts(page = 1, limit = 10, category, availability) {
       try {
-       const response = await productModel.find({});
-      return response
-        
-      } catch (e) {
-        console.log(e);
+        const query = {};
+    
+        if (category) {
+          query.category = category;
+        }
+    
+        if (availability) {
+          query.availability = availability;
+        }
+    
+        const response = await productModel.paginate(query, { page, limit });
+        return response;
+      } catch (error) {
+        console.error(error);
       }
-}
+    }
   
     async getProductById(id) {
      try {
