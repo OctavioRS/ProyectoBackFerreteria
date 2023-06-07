@@ -30,7 +30,7 @@ class CartsDaoMongoDB {
             console.log(error);
         }
     }
-    
+
     async addProductToCart(cid, pid) {
         try {
             const cart = await cartsModel.findById(cid);
@@ -62,29 +62,48 @@ class CartsDaoMongoDB {
 
     async deleteProductCart(cid, pid) {
         try {
+            const cart = await cartsModel.findById(cid);
+            console.log(cart)
+            if (!cart) {
+                return { error: true, status: 404, message: 'Carrito no encontrado' };
+            }
+
+            const productIndex = cart.products.findIndex(product => product.toString() === pid);
+            console.log(productIndex)
+
+            if (productIndex === -1) {
+                return { error: true, status: 404, message: 'Producto no encontrado en el carrito' };
+            }
+
+            cart.products.splice(productIndex, 1);
+            await cart.save();
+            return cart;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+    async updateProductCart(cid, pid, quantity) {
+        try {
           const cart = await cartsModel.findById(cid);
-          console.log(cart)
           if (!cart) {
-            return { error: true, status: 404, message: 'Carrito no encontrado' };
+            throw new Error('Cart not found');
           }
-        
-          const productIndex = cart.products.findIndex(product => product.toString() === pid);
-          console.log(productIndex)
-        
-          if (productIndex === -1) {
-            return { error: true, status: 404, message: 'Producto no encontrado en el carrito' };
+      
+          const prodIndex = cart.products.findIndex((p) => p._id.toString() === pid.toString());
+          if (prodIndex >= 0) {
+            cart.products[prodIndex].quantity = quantity;
+          } else {
+            cart.products.push({ _id: pid, quantity: quantity });
           }
-        
-          cart.products.splice(productIndex, 1);
           await cart.save();
           return cart;
         } catch (error) {
-          console.error(error);
-          throw error;
+          throw new Error("Error");
         }
       }
       
-    
 }
 
 export default CartsDaoMongoDB

@@ -49,5 +49,17 @@ export const deleteProductCartService = async (cid, pid) => {
     } catch (error) {
         throw new Error(error);
     }
-
 }
+export const updateProductCartService = async (cid, pid, quantity) => {
+    try {
+      const product = await cartDaoMongo.updateProductCart(cid, pid, quantity);
+      if (!product) {
+        throw new Error('Producto no encontrado para actualizar carrito');
+      }
+      return product;
+    } catch (error) {
+      console.error(error); 
+      throw new Error('Error en el servicio de actualización del carrito');
+    }
+  }
+  

@@ -5,7 +5,8 @@ import {
     getCartByIdController,
     createCartController,
     addProductToCartController,
-    deleteProductCartController
+    deleteProductCartController,
+    updateProductCartController
 
 } from '../controllers/carts.controllers.js';
 
@@ -16,6 +17,7 @@ router.get("/:cid", getCartByIdController);
 router.delete("/:cid/products/:pid", deleteProductCartController); 
 router.post("/", createCartController);
 router.post("/:cid/product/:pid", addProductToCartController);
+router.put("/:cid/products/:pid", updateProductCartController)
  
 
 export default router
