@@ -21,8 +21,8 @@ const port = 8080;
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-app.use('/api/products' , productsRoute)
-app.use('/api/carts' , cartRoute)
+//app.use('/api/products' , productsRoute)
+//app.use('/api/carts' , cartRoute)
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.engine('handlebars', handlebars.engine())
@@ -33,6 +33,8 @@ app.use('/', viewsRouter)
 app.use('/products', productmongoRouter)
 app.use('/messages', messagemongoRouter)
 app.use('/carts', cartsmongoRouter)
+
+
 
 const httpServer = app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);

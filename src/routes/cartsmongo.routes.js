@@ -13,8 +13,9 @@ const router = Router();
 
 router.get("/", getCartsController);
 router.get("/:cid", getCartByIdController);
+router.delete("/:cid/products/:pid", deleteProductCartController); 
 router.post("/", createCartController);
 router.post("/:cid/product/:pid", addProductToCartController);
-router.delete("/api/carts/:cid/products/:pid", deleteProductCartController);  
+ 
 
 export default router

@@ -56,6 +56,5 @@ class ProductDaoMongoDB {
             console.log(error);
          }
     }
-  
 }
   export default ProductDaoMongoDB;

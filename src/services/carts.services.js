@@ -42,9 +42,12 @@ export const addProductToCartService = async (cid, pid) =>{
 export const deleteProductCartService = async (cid, pid) => {
     try {
         const doc = await cartDaoMongo.deleteProductCart(cid, pid);
-        return doc
+        if (!doc) {
+            throw new Error('Carrito o producto no encontrado');
+          }
+          return doc
     } catch (error) {
-        console.log(error);
+        throw new Error(error);
     }
 
 }
