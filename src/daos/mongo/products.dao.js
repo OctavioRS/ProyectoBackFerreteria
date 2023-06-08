@@ -11,7 +11,7 @@ class ProductDaoMongoDB {
         console.log(error);
       }
     }
-    async getProducts(page = 1, limit = 10, category, availability) {
+    async getProducts(page = 1, limit = 10, category, availability, sort) {
       try {
         const query = {};
     
@@ -22,7 +22,8 @@ class ProductDaoMongoDB {
         if (availability) {
           query.availability = availability;
         }
-    
+
+         
         const response = await productModel.paginate(query, { page, limit });
         return response;
       } catch (error) {

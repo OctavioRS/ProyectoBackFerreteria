@@ -4,7 +4,8 @@ import {
     createCartService,
     addProductToCartService,
     deleteProductCartService,
-    updateProductCartService
+    updateProductCartService,
+    deleteAllProductsCartService
 } from '../services/carts.services.js'
 
 export const getCartsController = async (req, res, next) => {
@@ -61,6 +62,16 @@ export const updateProductCartController = async (req, res, next) => {
        const { quantity } = req.body
        const product = await updateProductCartService(cid, pid , quantity)
        res.json(product)
+    } catch (error) {
+        next(error);
+    }
+}
+
+export const deleteAllProductsCartController = async (req, res, next) => {
+    try {
+        const { cid } = req.params
+        const data = await deleteAllProductsCartService(cid)
+        res.json(data)
     } catch (error) {
         next(error);
     }
