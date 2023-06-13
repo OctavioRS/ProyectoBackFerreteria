@@ -22,14 +22,20 @@ class ProductDaoMongoDB {
         if (availability) {
           query.availability = availability;
         }
-
-         
-        const response = await productModel.paginate(query, { page, limit });
+    
+        const options = {
+          page,
+          limit,
+          sort: sort ? { price: sort } : undefined,
+        };
+    
+        const response = await productModel.paginate(query, options);
         return response;
       } catch (error) {
         console.error(error);
       }
     }
+    
   
     async getProductById(id) {
      try {
