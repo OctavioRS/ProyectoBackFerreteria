@@ -11,8 +11,7 @@ export const getController = async (req, res, next) => {
       const { page , limit, category , availability  } = req.query
      const docs = await getServices(page , limit, category, availability);
      
-     console.log(docs)
-     //res.json(docs);
+
      const status = "succes"
      const payload = docs.docs
      const totalPages = docs.totalPages

@@ -1,4 +1,4 @@
-import { userModel } from "../models/user.models.js";
+import { userModel } from "../models/user.models.js"; 
 
 export default class UserDao {
   async createUser(user) {
@@ -21,18 +21,19 @@ export default class UserDao {
     }
   }
 
-  async loginUser(user){
+  async loginUser(user) {
     try {
       const { email, password } = user;
-      const userExist = await userModel.find({email, password});
-      if(userExist.length !== 0){
-        return userExist
+      const userExist = await userModel.findOne({ email, password }).select('email password');
+      if (userExist) {
+        return { email: userExist.email, password: userExist.password };
       } else {
-        return null
+        return null;
       }
     } catch (error) {
-      console.log(error)
-      throw new Error(error)
+      console.log(error);
+      throw new Error(error);
     }
   }
-}
+  
+}  
