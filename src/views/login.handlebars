@@ -1,9 +1,74 @@
-<h1>LOGIN</h1>
-<form action='/users/login' method='post'>
-  Email: <input type='email' name='email' id='email' />
-  Password: <input type='password' name='password' id='password' />
-  <input type='submit' value='INGRESAR' />
-</form>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>LOGIN</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f1f1f1;
+        padding: 20px;
+        text-align: center;
+      }
+      h1 {
+        color: #333;
+        margin-bottom: 20px;
+      }
+      form {
+        display: inline-block;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      input[type='email'],
+      input[type='password'] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-sizing: border-box;
+      }
+      input[type='submit'] {
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+      input[type='submit']:hover {
+        background-color: #45a049;
+      }
+      h2 {
+        color: #333;
+        margin-top: 40px;
+      }
+      button {
+        background-color: #008cba;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #007a9b;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>LOGIN</h1>
+    <form action="/users/login" method="post">
+      Email: <input type="email" name="email" id="email" required />
+      <br />
+      Password: <input type="password" name="password" id="password" required />
+      <br />
+      <input type="submit" value="INGRESAR" />
+    </form>
 
-<h2>USUARIO NUEVO?</h2>
-<button onclick="location.href='/views/register'">Ir a registro</button>
+    <h2>USUARIO NUEVO?</h2>
+    <button onclick="location.href='/views/register'">Ir a registro</button>
+  </body>
+</html>
