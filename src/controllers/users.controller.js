@@ -1,4 +1,6 @@
 import { createUserService, loginUserService } from "../services/users.services.js"
+import UserDao from "../daos/mongo/user.dao.js";
+const userDao = new UserDao() 
 
 export const userController = async (req, res, next) => {
   try {
@@ -17,6 +19,7 @@ export const loginController = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await loginUserService(req.body);
+    console.log(user)
     if (user) {
       req.session.email = email;
       req.session.password = password;
@@ -26,5 +29,30 @@ export const loginController = async (req, res, next) => {
     }
   } catch (error) {
     next(error);
+  }
+}
+
+
+export const registerResponse = (req, res, next)=>{
+  try {
+      res.json({
+          msg: 'Register OK',
+          session: req.session    
+      })
+  } catch (error) {
+      next(error);
+  }
+};
+
+export const loginResponse = async(req, res, next)=>{
+  try {
+      
+      res.json({
+          msg: 'Login OK',
+          session: req.session,
+       
+      })
+  } catch (error) {
+      next(error);
   }
 }

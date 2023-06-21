@@ -16,6 +16,8 @@ import sessionFileStore from 'session-file-store'
 import session from "express-session";
 import cookieParser from 'cookie-parser'
 import mongoStore from 'connect-mongo'
+import passport from 'passport';
+import './passport/strategies.js'
 import './db/database.js'
 
 
@@ -25,22 +27,10 @@ const productManager = new ProductManager('../productos.json');
 const app = express();
 const port = 8080;
 
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser())
-
-//app.use('/api/products' , productsRoute)
-//app.use('/api/carts' , cartRoute)
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.engine('handlebars', handlebars.engine())
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'handlebars')
-//app.use('/', productViews)
-
-app.use('/products', productmongoRouter)
-app.use('/messages', messagemongoRouter)
-app.use('/carts', cartsmongoRouter)
+app.use(cookieParser());
 
 app.use(session({
   secret: 'sessionKey',
@@ -55,6 +45,20 @@ app.use(session({
   }),
 })
 )
+
+app.use(passport.initialize());
+app.use(passport.session())
+//app.use('/api/products' , productsRoute)
+//app.use('/api/carts' , cartRoute)
+
+app.engine('handlebars', handlebars.engine())
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'handlebars')
+//app.use('/', productViews)
+
+app.use('/products', productmongoRouter)
+app.use('/messages', messagemongoRouter)
+app.use('/carts', cartsmongoRouter)
 
 app.use('/users', usersRouter)
 app.use('/views', viewsRouter)
