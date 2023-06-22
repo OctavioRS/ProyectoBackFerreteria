@@ -18,6 +18,7 @@ import cookieParser from 'cookie-parser'
 import mongoStore from 'connect-mongo'
 import passport from 'passport';
 import './passport/strategies.js'
+import './passport/github.js'
 import './db/database.js'
 
 
