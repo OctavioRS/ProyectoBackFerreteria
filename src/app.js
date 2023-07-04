@@ -17,16 +17,19 @@ import session from "express-session";
 import cookieParser from 'cookie-parser'
 import mongoStore from 'connect-mongo'
 import passport from 'passport';
+import './passport/current.js'
 import './passport/strategies.js'
 import './passport/github.js'
 import './db/database.js'
+import dotenv from 'dotenv'
+dotenv.config()
 
 
 const productManager = new ProductManager('../productos.json');
 
 
 const app = express();
-const port = 8080;
+const port = process.env.port || 8080;
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
@@ -63,6 +66,7 @@ app.use('/carts', cartsmongoRouter)
 
 app.use('/users', usersRouter)
 app.use('/views', viewsRouter)
+app.use('/api/sessions', usersRouter )
 
 
 const httpServer = app.listen(port, () => {

@@ -21,4 +21,11 @@ router.get('/error-login',(req,res)=>{
 router.get('/profile',(req,res)=>{
     res.render('profile')
 })
+
+
+//// JWT ////
+
+router.get('/jwt',(req,res)=>{
+    res.render('jwt')
+});
 export default router

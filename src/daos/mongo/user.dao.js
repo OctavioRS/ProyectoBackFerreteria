@@ -5,7 +5,7 @@ import { userModel } from "../models/user.models.js";
 export default class UserDao {
   async createUser(user) {
     try {
-      const { first_name, last_name,  age,  email, password } = user;
+      const { first_name, last_name,  age, cart,  email, password } = user;
       const existUser = await userModel.find({email});
       if(existUser.length === 0){
         if(email === 'adminCoder@coder.com' && password === 'adminCoder123'){
