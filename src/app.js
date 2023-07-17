@@ -21,15 +21,14 @@ import './passport/current.js'
 import './passport/strategies.js'
 import './passport/github.js'
 import './db/database.js'
-import dotenv from 'dotenv'
-dotenv.config()
+import config from "./config.js";
 
 
 const productManager = new ProductManager('../productos.json');
 
 
 const app = express();
-const port = process.env.port || 8080;
+const port = config.port || 8080;
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
@@ -44,7 +43,7 @@ app.use(session({
     maxAge: 10000
   },
   store: new mongoStore({
-    mongoUrl: 'mongodb+srv://octavio:octavio@clusterecommerce.xka9yxf.mongodb.net/Ecommerce?retryWrites=true&w=majority',
+    mongoUrl: config.mongo_atlas_url,
     ttl: 10322,
   }),
 })

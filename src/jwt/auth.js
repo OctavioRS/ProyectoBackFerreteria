@@ -1,8 +1,9 @@
 import jwt from 'jsonwebtoken'
 import UserDao from '../daos/mongo/user.dao.js'
+import config from '../config.js';
 const userDao = new UserDao()
 
-const PRIVATE_KEY = '1234';
+const PRIVATE_KEY_JWT = config.private_key_jwt;
 
 export const generateToken = (user) =>{
     const payload = {
@@ -14,7 +15,7 @@ export const generateToken = (user) =>{
         cart: user.cart
     };
 
-    const token = jwt.sign(payload, PRIVATE_KEY, {
+    const token = jwt.sign(payload, PRIVATE_KEY_JWT, {
         expiresIn: '15m'
     });
     console.log(token)

@@ -1,1 +1,3 @@
-port
+port =
+private_key_jwt =
+mongo_atlas_url =  
