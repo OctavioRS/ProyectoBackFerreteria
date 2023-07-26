@@ -31,10 +31,8 @@ router.get('/private', checkAuth, privateRoute);
 
 router.get('/current', passport.authenticate('current'), (req , res) => {
     res.send (req.user)
+    console.log('log :::::::::::::::: ', req.user)
 })
-
-
-
 
 
 export default router

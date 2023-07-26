@@ -31,6 +31,9 @@ const verifyToken = async (jwt_payload, done) => {
 
 // req.user = jwt_payload
 
+/*----------------------------------- - -----------------------------------*/
+
+
 passport.use('current', new jwtStrategy(strategyOptions, verifyToken));
 passport.use('jwtCookies', new jwtStrategy(strategyOptionsCookies, verifyToken));
 

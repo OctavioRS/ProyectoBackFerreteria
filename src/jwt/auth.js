@@ -12,13 +12,15 @@ export const generateToken = (user) =>{
         last_name: user.last_name,
         email: user.email,
         age: user.age,
-        cart: user.cart
+        cart: user.cart,
+        role: user.role
     };
 
     const token = jwt.sign(payload, PRIVATE_KEY_JWT, {
         expiresIn: '15m'
     });
     console.log(token)
+    
     return token
 };
 
@@ -28,7 +30,7 @@ export const checkAuth = async (req, res, next) => {
         // req.get('Authorization')
         if(!authHeader) return res.status(401).json({ msg: 'Unauthorized' });
         const token = authHeader.split(' ')[1];
-        const decode = jwt.verify(token, PRIVATE_KEY);
+        const decode = jwt.verify(token, PRIVATE_KEY_JWT);
         const user = await userDao.getById(decode.userId);
         if(!user) return res.status(401).json({ msg: 'Unauthorized' });
         req.user = user;

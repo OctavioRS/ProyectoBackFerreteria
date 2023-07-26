@@ -8,12 +8,14 @@ import {
     deleteController,
 } from '../controllers/products.controllers.js';
 
+import { isAdmin } from '../middleweare/autorization.js';
+
 const router = Router();
 
 router.get('/', getController);
 router.get('/:id', getByIdController);
-router.post('/', createController);
-router.put('/:id', updateController);
-router.delete('/:id', deleteController);
+router.post('/', isAdmin, createController);
+router.put('/:id', isAdmin , updateController);
+router.delete('/:id',isAdmin, deleteController);
 
 export default router;
