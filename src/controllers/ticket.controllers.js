@@ -1,13 +1,23 @@
 import TicketService from "../services/ticket.services.js";
 
+function generateCode(length) {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let code = '';
 
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    code += characters[randomIndex];
+  }
+
+  return code;
+}
 
 
 export const ticketController = async (req, res, next) => {
   try {
     const ticket = {
       amount: 100, 
-      code: "TICKET123",
+      code: generateCode(5),
       purchaser: req.session.id,
       cart: req.user.cart
     };
