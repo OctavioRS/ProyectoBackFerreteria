@@ -2,6 +2,7 @@ import { createUserService, loginUserService } from "../services/users.services.
 import { generateToken } from "../jwt/auth.js";
 import UserDao from "../daos/mongo/user.dao.js";
 const userDao = new UserDao()
+import { getUserDto } from "../services/users.services.js";
 /*
 export const userController = async (req, res, next) => {
   try {
@@ -137,4 +138,13 @@ export const loginFront = async (req, res, next) => {
   }
 }
 
-
+export const getUserDtoController = async (req, res, next) => {
+  try {
+    const { id } = req.params
+    const user = await getUserDto(id)
+     res.json(user)
+    
+    } catch (error) {
+      next(error);
+  }
+}

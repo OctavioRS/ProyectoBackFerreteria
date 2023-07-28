@@ -17,7 +17,7 @@ export const generateToken = (user) =>{
     };
 
     const token = jwt.sign(payload, PRIVATE_KEY_JWT, {
-        expiresIn: '15m'
+        expiresIn: '45m'
     });
     console.log(token)
     
@@ -31,7 +31,7 @@ export const checkAuth = async (req, res, next) => {
         if(!authHeader) return res.status(401).json({ msg: 'Unauthorized' });
         const token = authHeader.split(' ')[1];
         const decode = jwt.verify(token, PRIVATE_KEY_JWT);
-        const user = await userDao.getById(decode.userId);
+        const user = await userDao.getById(decode.userId)
         if(!user) return res.status(401).json({ msg: 'Unauthorized' });
         req.user = user;
         next();

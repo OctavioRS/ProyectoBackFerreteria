@@ -22,12 +22,13 @@ class CartsDaoMongoDB {
 
     async getCartById(cid) {
         try {
-            const response = await cartsModel.findById({ _id: cid }).populate('products._id')
-            return response
+          const response = await cartsModel.findById(cid).populate('products.productId');
+          return response;
         } catch (error) {
-            console.log(error);
+          console.log(error);
         }
-    }
+      }
+      
 
     async addProductToCart(cid, pid) {
         try {

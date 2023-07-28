@@ -33,17 +33,27 @@ router.get("/:cid", async (req, res) => {
 
 router.post("/:cid/product/:pid", async (req, res) => {
     try {
-        const { cid, pid } = req.params;
-        const product = await cartManager.saveProductToCart(Number(cid), Number(pid));
-        if (product) {
-            res.status(200).json(product);
+        const cartId = req.params.cid;
+        const result = await CartController.purchaseCart(cartId);
+        
+        if (result.success) {
+          res.status(200).json({
+            message: "Compra completada exitosamente",
+            ticket: result.ticket,
+            notPurchasedProducts: result.notPurchasedProducts
+          });
         } else {
-            res.status(404).send("Product or cart not found");
+          res.status(400).json({
+            message: "Error al completar la compra",
+            notPurchasedProducts: result.notPurchasedProducts
+          });
         }
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("Error adding product to cart");
-    }
-});
+      } catch (error) {
+        res.status(500).json({
+          error: "Error al procesar la solicitud"
+        });
+      }
+    });
+
 
 export default router;

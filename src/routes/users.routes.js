@@ -3,6 +3,7 @@ import passport from 'passport';
 //import { registerResponse, loginResponse, githubResponse } from '../controllers/users.controller.js'
 //import { userController , loginController } from '../controllers/users.controller.js'
 import { register, login, loginFront, privateRoute } from '../controllers/users.controller.js';
+import { getUserDtoController } from '../controllers/users.controller.js';
 import { checkAuth } from '../jwt/auth.js';
 const router = Router()
 
@@ -31,8 +32,9 @@ router.get('/private', checkAuth, privateRoute);
 
 router.get('/current', passport.authenticate('current'), (req , res) => {
     res.send (req.user)
-    console.log('log :::::::::::::::: ', req.user)
+    
 })
 
+router.get('/dto/:id', getUserDtoController )
 
 export default router
