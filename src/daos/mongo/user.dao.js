@@ -79,7 +79,7 @@ export default class UserDao {
       return userDTO
     } catch (error) {
       console.log(error)
-      // throw new Error(error)
+      
     }
   }
 }  

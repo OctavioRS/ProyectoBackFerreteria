@@ -1,5 +1,6 @@
 import { cartsModel } from '../models/carts.models.js'
 import { productModel } from '../models/products.models.js';
+import { userModel } from '../models/user.models.js';
 class CartsDaoMongoDB {
 
     async getAllCarts() {
@@ -22,20 +23,20 @@ class CartsDaoMongoDB {
 
     async getCartById(cid) {
         try {
-          const response = await cartsModel.findById(cid).populate('products.productId');
-          return response;
+            const response = await cartsModel.findById(cid).populate('products.productId');
+            return response;
         } catch (error) {
-          console.log(error);
+            console.log(error);
         }
-      }
-      
+    }
+
 
     async addProductToCart(cid, pid) {
         try {
             const cart = await cartsModel.findById(cid);
             cart.products.push(pid);
             cart.save()
-            
+
         } catch (error) {
             console.log(error);
         }
@@ -98,6 +99,23 @@ class CartsDaoMongoDB {
         }
     }
 
+    async getCartByUser(userId) {
+        try {
+            const user = await userModel.findOne({ _id: userId }).populate('cart');
+            if (user) {
+                if (user.cart) {
+                    return user.cart;
+                } else {
+                    return { message: 'Cart user not found' };
+                }
+            } else {
+                return { message: 'User not found' };
+            }
+        } catch (error) {
+            console.log(error);
+            throw error; // Relanzar el error para que el controlador o capa superior lo maneje
+        }
+    }
 }
 
 export default CartsDaoMongoDB

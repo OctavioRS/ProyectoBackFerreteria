@@ -88,35 +88,5 @@ export const deleteAllProductsCartController = async (req, res, next) => {
 
 
 
-async function purchaseCart(req, res) {
-    try {
-      const { cartId, userId } = req.params;
-  
-      // Verify that the cart belongs to the user
-      const cart = await cartDaoMongo.getCartById(cartId);
-  
-      if (!cart || cart.userId !== userId) {
-        return res.status(404).json({ message: 'Cart not found for the user' });
-      }
-  
-      const { ticket, failedProductIds } = await ticketService.generateTicket(cartId);
-  
-      if (ticket) {
-        // Remove purchased products from the cart
-        cart.products = cart.products.filter(
-          (product) => !ticket.purchasedProducts.map((p) => p.productId).includes(product.productId)
-        );
-        await cartDaoMongo.updateProductCart(cartId, cart);
-  
-        return res.status(200).json({ ticket });
-      } else {
-        return res.status(422).json({ message: 'No products could be purchased', failedProductIds });
-      }
-    } catch (error) {
-      console.error('Error purchasing cart:', error);
-      return res.status(500).json({ message: 'Internal server error' });
-    }
-  }
-  
-  export { purchaseCart };
+
 

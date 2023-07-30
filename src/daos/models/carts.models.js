@@ -13,7 +13,4 @@ const cartsSchema = new mongoose.Schema({
   }],
 });
 
-
-
-
 export const cartsModel = mongoose.model('carts', cartsSchema);

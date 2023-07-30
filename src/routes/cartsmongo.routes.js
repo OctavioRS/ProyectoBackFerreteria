@@ -27,6 +27,6 @@ router.post("/", createCartController);
 router.post("/:cid/product/:pid", checkAuth, isUser, addProductToCartController);
 router.put("/:cid/products/:pid", updateProductCartController);
 router.post('/:cid/purchase', checkAuth, ticketController)    
-
+router.post('/:cid/prueba', checkAuth, ticketController)
 
 export default router;
