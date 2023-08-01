@@ -99,6 +99,15 @@ class CartsDaoMongoDB {
         }
     }
 
+    async updateCart(cart) {
+        const updatedCart = await cartsModel.findByIdAndUpdate(cart._id, { products: cart.products }, { new: true });
+        return updatedCart;
+    } catch(error) {
+        console.error(error);
+        throw new Error('Error updating cart in the database');
+    }
+
+
     async getCartByUser(userId) {
         try {
             const user = await userModel.findOne({ _id: userId }).populate('cart');
@@ -113,7 +122,7 @@ class CartsDaoMongoDB {
             }
         } catch (error) {
             console.log(error);
-            throw error; // Relanzar el error para que el controlador o capa superior lo maneje
+            throw error;
         }
     }
 }

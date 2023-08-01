@@ -29,7 +29,7 @@ const verifyToken = async (jwt_payload, done) => {
     return done(null, jwt_payload)
 }
 
-// req.user = jwt_payload
+
 
 /*----------------------------------- - -----------------------------------*/
 
