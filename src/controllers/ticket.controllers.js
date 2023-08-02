@@ -64,7 +64,6 @@ export const ticketController = async (req, res, next) => {
     userCart.products = notPurchasedProducts;
     await cartUser.updateCart(userCart);
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: 'Internal server error' });
+    return Httpresponse.ServerError(res, error)
   }
 };

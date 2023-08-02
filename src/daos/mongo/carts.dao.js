@@ -8,7 +8,7 @@ class CartsDaoMongoDB {
             const response = await cartsModel.find({});
             return response;
         } catch (error) {
-            console.log(error);
+            throw new Error(error)
         }
     }
 
@@ -17,7 +17,7 @@ class CartsDaoMongoDB {
             const response = await cartsModel.create(obj);
             return response;
         } catch (error) {
-            console.log(error);
+            throw new Error(error)
         }
     }
 
@@ -26,7 +26,7 @@ class CartsDaoMongoDB {
             const response = await cartsModel.findById(cid).populate('products.productId');
             return response;
         } catch (error) {
-            console.log(error);
+            throw new Error(error)
         }
     }
 
@@ -38,7 +38,7 @@ class CartsDaoMongoDB {
             cart.save()
 
         } catch (error) {
-            console.log(error);
+            throw new Error(error)
         }
     };
 
@@ -61,8 +61,7 @@ class CartsDaoMongoDB {
             await cart.save();
             return cart;
         } catch (error) {
-            console.error(error);
-            throw error;
+            throw new Error(error)
         }
     }
     async deleteAllProductsCart(cid) {
@@ -121,8 +120,7 @@ class CartsDaoMongoDB {
                 return { message: 'User not found' };
             }
         } catch (error) {
-            console.log(error);
-            throw error;
+            throw new Error(error)
         }
     }
 }

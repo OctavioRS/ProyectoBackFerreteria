@@ -8,7 +8,7 @@ class TicketService {
       const newTicket = await ticketDaoMongo.createTicket(ticket)
       return newTicket
     } catch (error) {
-      console.log(error)
+      throw new Error(error)
     }
 }
 }

@@ -25,7 +25,6 @@ export default class UserDao {
         return null;
       }
     } catch (error) {
-      console.log(error)
       throw new Error(error)
     }
   }
@@ -41,8 +40,7 @@ export default class UserDao {
         else return userExist
       } return false
     } catch (error) {
-      console.log(error);
-      throw new Error(error);
+      throw new Error(error)
     }
   }
 
@@ -54,8 +52,7 @@ export default class UserDao {
        return userExist
       } return false
     } catch (error) {
-      console.log(error)
-      // throw new Error(error)
+      throw new Error(error)
     }
   }
 
@@ -78,8 +75,7 @@ export default class UserDao {
       const userDTO = new UserDto(user)
       return userDTO
     } catch (error) {
-      console.log(error)
-      
+      throw new Error(error)
     }
   }
 }  

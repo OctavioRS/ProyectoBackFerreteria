@@ -8,7 +8,7 @@ class ProductDaoMongoDB {
         return response
         
       } catch (error) {
-        console.log(error);
+        throw new Error(error)
       }
     }
     async getProducts(page = 1, limit = 10, category, availability, sort) {
@@ -32,7 +32,7 @@ class ProductDaoMongoDB {
         const response = await productModel.paginate(query, options);
         return response;
       } catch (error) {
-        console.error(error);
+        throw new Error(error)
       }
     }
     
@@ -42,7 +42,7 @@ class ProductDaoMongoDB {
         const response = await productModel.findById(id);
         return response
      } catch (error) {
-        console.log(error);
+      throw new Error(error)
      }
     }
    
@@ -51,7 +51,7 @@ class ProductDaoMongoDB {
        await productModel.updateOne({_id: id}, obj)
        return obj
       } catch (error) {
-        console.log(error);
+        throw new Error(error)
       }
     }
   
@@ -60,7 +60,7 @@ class ProductDaoMongoDB {
             const response = await productModel.findByIdAndDelete(id);
             return response
          } catch (error) {
-            console.log(error);
+          throw new Error(error)
          }
     }
 }

@@ -9,6 +9,7 @@ import viewsRouter from './routes/views.router.js'
 import usersRouter from './routes/users.routes.js'
 import { Server } from 'socket.io'
 import ProductManager from "./daos/filesystem/ProductManager.js";
+import prodfakeRouter from './routes/productsfake.routes.js'
 import productmongoRouter from './routes/productsmongo.routes.js'
 import messagemongoRouter from './routes/messagesmongo.routes.js'
 import cartsmongoRouter from './routes/cartsmongo.routes.js'
@@ -66,6 +67,7 @@ app.use('/carts', cartsmongoRouter)
 app.use('/users', usersRouter)
 app.use('/views', viewsRouter)
 app.use('/api/sessions', usersRouter )
+app.use('/mockingproducts', prodfakeRouter)
 
 
 const httpServer = app.listen(port, () => {

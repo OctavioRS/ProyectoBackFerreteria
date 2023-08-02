@@ -8,7 +8,7 @@ export const createUserService = async (user) => {
     
    return newUser;
   } catch (error) {
-    console.log(error);
+    throw new Error(error)
   }
 }
 
@@ -18,7 +18,7 @@ export const loginUserService = async (user) => {
     const data = await usersDaoMongo.loginUser(user);
    return data
 } catch (error) {
-  console.log(error);
+  throw new Error(error)
 }
   }
 
@@ -28,7 +28,7 @@ export const loginUserService = async (user) => {
       if(!data) return false
      return data
   } catch (error) {
-    console.log(error);
+    throw new Error(error)
   }
     }
   

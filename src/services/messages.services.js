@@ -6,7 +6,7 @@ export const getMsg = async () => {
         const docs = await messagesDaoMongo.getMessage()
         return docs;
     } catch (error) {
-        console.error(error);
+        throw new Error(error)
     }
 }
 
@@ -15,7 +15,7 @@ export const sendMsg = async (obj) => {
         const newMssg = await messagesDaoMongo.sendMessage(obj)
         return newMssg;
     } catch (error) {
-        console.error(error);
+        throw new Error(error)
     }
 }
 
@@ -25,6 +25,6 @@ export const deleteMsg = async (id) => {
         const mssgDel = await messagesDaoMongo.deleteMessage(id)
         return mssgDel;
     } catch (error) {
-        console.error(error);
+        throw new Error(error)
     }
 }

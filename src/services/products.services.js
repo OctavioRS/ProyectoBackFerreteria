@@ -6,7 +6,7 @@ export const getServices = async (page , limit, category , availability) => {
         const docs = await prodDaoMongo.getProducts(page , limit, category, availability)
         return docs;
     } catch (error) {
-        console.error(error);
+        throw new Error(error)
     }
 }
 
@@ -15,7 +15,7 @@ export const addServices = async (obj) => {
         const newProd = await prodDaoMongo.addProduct(obj)
         return newProd;
     } catch (error) {
-        console.error(error);
+        throw new Error(error)
     }
 }
 
@@ -24,7 +24,7 @@ export const getServicesById = async (id) => {
         const docs = await prodDaoMongo.getProductById(id)
         return docs;
     } catch (error) {
-        console.error(error);
+        throw new Error(error)
     }
 }
 
@@ -39,7 +39,7 @@ export const updateServices = async (id, obj) => {
         }
      
     } catch (error) {
-        console.error(error);
+        throw new Error(error)
     }
 }
 
@@ -48,6 +48,6 @@ export const deleteServices = async (id) => {
         const prodDel = await prodDaoMongo.deleteProduct(id)
         return prodDel;
     } catch (error) {
-        console.error(error);
+        throw new Error(error)
     }
 }

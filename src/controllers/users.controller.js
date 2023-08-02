@@ -3,6 +3,8 @@ import { generateToken } from "../jwt/auth.js";
 import UserDao from "../daos/mongo/user.dao.js";
 const userDao = new UserDao()
 import { getUserDto } from "../services/users.services.js";
+import { HttpResponse } from '../utils/http.response.js';
+const Httpresponse = new HttpResponse();
 /*
 export const userController = async (req, res, next) => {
   try {
@@ -93,7 +95,7 @@ export const register = async (req, res, next) => {
       token
     })
   } catch (error) {
-    next(error);
+    return Httpresponse.ServerError(res, error)
   }
 };
 
@@ -134,17 +136,15 @@ export const loginFront = async (req, res, next) => {
     )
       res.json({ msg: 'Login OK', access_token })
   } catch (error) {
-    next(error);
-  }
+    return Httpresponse.ServerError(res, error)
 }
-
+}
 export const getUserDtoController = async (req, res, next) => {
   try {
     const { id } = req.params
     const user = await getUserDto(id)
      res.json(user)
-    
     } catch (error) {
-      next(error);
+      return Httpresponse.NotFound(res, error)
   }
 }
