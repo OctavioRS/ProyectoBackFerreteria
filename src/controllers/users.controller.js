@@ -4,6 +4,7 @@ import UserDao from "../daos/mongo/user.dao.js";
 const userDao = new UserDao()
 import { getUserDto } from "../services/users.services.js";
 import { HttpResponse } from '../utils/http.response.js';
+import { loggerDev } from '../utils/loggers.js';
 const Httpresponse = new HttpResponse();
 /*
 export const userController = async (req, res, next) => {
@@ -95,6 +96,7 @@ export const register = async (req, res, next) => {
       token
     })
   } catch (error) {
+    loggerDev.error(error.message)
     return Httpresponse.ServerError(res, error)
   }
 };
@@ -136,6 +138,7 @@ export const loginFront = async (req, res, next) => {
     )
       res.json({ msg: 'Login OK', access_token })
   } catch (error) {
+    loggerDev.error(error.message)
     return Httpresponse.ServerError(res, error)
 }
 }
@@ -145,6 +148,7 @@ export const getUserDtoController = async (req, res, next) => {
     const user = await getUserDto(id)
      res.json(user)
     } catch (error) {
+      loggerDev.error(error.message)
       return Httpresponse.NotFound(res, error)
   }
 }

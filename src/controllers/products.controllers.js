@@ -6,6 +6,7 @@ import {
     deleteServices
 } from '../services/products.services.js';
 import { HttpResponse } from '../utils/http.response.js';
+import { loggerDev } from '../utils/loggers.js';
 const Httpresponse = new HttpResponse();
 
 export const getController = async (req, res, next) => {
@@ -38,6 +39,7 @@ export const getController = async (req, res, next) => {
      })
     } catch (error) {
       const status = "error"
+      loggerDev.error(error.message)
       next(error);
     }
   };
@@ -48,6 +50,7 @@ export const getController = async (req, res, next) => {
       const doc = await getServicesById(id);
       res.json(doc);
     } catch (error) {
+      loggerDev.error(error.message)
       next(error);
     }
   };
@@ -67,6 +70,7 @@ export const getController = async (req, res, next) => {
       });
       res.json(newDoc);
     } catch (error) {
+      loggerDev.error(error.message)
       next(error);
     }
   };
@@ -91,6 +95,7 @@ export const getController = async (req, res, next) => {
       await deleteServices(id);
       res.json({message: 'Product deleted successfully!'})
     } catch (error) {
+      loggerDev.error(error.message)
       next(error);
     }
   };

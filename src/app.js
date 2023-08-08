@@ -13,6 +13,7 @@ import prodfakeRouter from './routes/productsfake.routes.js'
 import productmongoRouter from './routes/productsmongo.routes.js'
 import messagemongoRouter from './routes/messagesmongo.routes.js'
 import cartsmongoRouter from './routes/cartsmongo.routes.js'
+import loggerTestRouter from './routes/loggerTest.router.js'
 import sessionFileStore from 'session-file-store'
 import session from "express-session";
 import cookieParser from 'cookie-parser'
@@ -23,6 +24,7 @@ import './passport/strategies.js'
 import './passport/github.js'
 import './db/database.js'
 import config from "./config.js";
+import { loggerDev, loggerProduction } from "./utils/loggers.js";
 
 
 const productManager = new ProductManager('../productos.json');
@@ -68,10 +70,12 @@ app.use('/users', usersRouter)
 app.use('/views', viewsRouter)
 app.use('/api/sessions', usersRouter )
 app.use('/mockingproducts', prodfakeRouter)
+app.use('/loggerTest', loggerTestRouter)
+
 
 
 const httpServer = app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`);
+  loggerDev.info(`Server listening at http://localhost:${port}`);
 });
 
 const socketServer = new Server(httpServer)

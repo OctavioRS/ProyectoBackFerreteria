@@ -1,4 +1,5 @@
 import { ticketModel } from '../models/ticket.models.js'
+import { loggerDev } from '../../utils/loggers.js';
 
 class TicketDaoMongoDB {
    
@@ -11,6 +12,7 @@ class TicketDaoMongoDB {
         
         return data
       } catch (error) {
+        loggerDev.error(error.message)
         throw new Error(error)
       }
     }

@@ -1,4 +1,5 @@
 import UserDao from '../daos/mongo/user.dao.js'
+import { loggerDev } from '../../utils/loggers.js';
 
 const usersDaoMongo = new UserDao();
 
@@ -8,6 +9,7 @@ export const createUserService = async (user) => {
     
    return newUser;
   } catch (error) {
+    loggerDev.error(error.message)
     throw new Error(error)
   }
 }
@@ -18,6 +20,7 @@ export const loginUserService = async (user) => {
     const data = await usersDaoMongo.loginUser(user);
    return data
 } catch (error) {
+  loggerDev.error(error.message)
   throw new Error(error)
 }
   }
@@ -28,6 +31,7 @@ export const loginUserService = async (user) => {
       if(!data) return false
      return data
   } catch (error) {
+    loggerDev.error(error.message)
     throw new Error(error)
   }
     }

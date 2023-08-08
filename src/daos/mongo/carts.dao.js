@@ -1,6 +1,7 @@
 import { cartsModel } from '../models/carts.models.js'
 import { productModel } from '../models/products.models.js';
 import { userModel } from '../models/user.models.js';
+import { loggerDev } from '../../utils/loggers.js';
 class CartsDaoMongoDB {
 
     async getAllCarts() {
@@ -8,6 +9,7 @@ class CartsDaoMongoDB {
             const response = await cartsModel.find({});
             return response;
         } catch (error) {
+            loggerDev.error(error.message)
             throw new Error(error)
         }
     }
@@ -17,6 +19,7 @@ class CartsDaoMongoDB {
             const response = await cartsModel.create(obj);
             return response;
         } catch (error) {
+            loggerDev.error(error.message)
             throw new Error(error)
         }
     }
@@ -26,6 +29,7 @@ class CartsDaoMongoDB {
             const response = await cartsModel.findById(cid).populate('products.productId');
             return response;
         } catch (error) {
+            loggerDev.error(error.message)
             throw new Error(error)
         }
     }
@@ -38,6 +42,7 @@ class CartsDaoMongoDB {
             cart.save()
 
         } catch (error) {
+            loggerDev.error(error.message)
             throw new Error(error)
         }
     };
@@ -61,6 +66,7 @@ class CartsDaoMongoDB {
             await cart.save();
             return cart;
         } catch (error) {
+            loggerDev.error(error.message)
             throw new Error(error)
         }
     }
@@ -74,6 +80,7 @@ class CartsDaoMongoDB {
             await cart.save();
             return { error: false, status: 200, message: 'Products deleted successfully' };
         } catch (error) {
+            loggerDev.error(error.message)
             throw new Error("Error");
         }
     }
@@ -94,18 +101,20 @@ class CartsDaoMongoDB {
             await cart.save();
             return cart;
         } catch (error) {
+              loggerDev.error(error.message)
             throw new Error("Error");
         }
     }
 
     async updateCart(cart) {
+        try {
         const updatedCart = await cartsModel.findByIdAndUpdate(cart._id, { products: cart.products }, { new: true });
         return updatedCart;
     } catch(error) {
-        console.error(error);
+        loggerDev.error(error.message)
         throw new Error('Error updating cart in the database');
     }
-
+    }
 
     async getCartByUser(userId) {
         try {
@@ -120,6 +129,7 @@ class CartsDaoMongoDB {
                 return { message: 'User not found' };
             }
         } catch (error) {
+            loggerDev.error(error.message)
             throw new Error(error)
         }
     }

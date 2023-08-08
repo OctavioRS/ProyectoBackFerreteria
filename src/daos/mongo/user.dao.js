@@ -2,6 +2,7 @@ import { createHash, isValidPassword } from "../../path.js";
 import { userModel } from "../models/user.models.js"; 
 import { cartsModel } from "../models/carts.models.js";
 import UserDto from "../../dtos/user.dto.js";
+import { loggerDev } from '../../utils/loggers.js';
 
 
 export default class UserDao {
@@ -25,6 +26,7 @@ export default class UserDao {
         return null;
       }
     } catch (error) {
+      loggerDev.error(error.message)
       throw new Error(error)
     }
   }
@@ -40,6 +42,7 @@ export default class UserDao {
         else return userExist
       } return false
     } catch (error) {
+      loggerDev.error(error.message)
       throw new Error(error)
     }
   }
@@ -52,6 +55,7 @@ export default class UserDao {
        return userExist
       } return false
     } catch (error) {
+      loggerDev.error(error.message)
       throw new Error(error)
     }
   }
@@ -64,7 +68,7 @@ export default class UserDao {
        return userExist
       } return false
     } catch (error) {
-      console.log(error)
+      loggerDev.error(error.message)
       throw new Error(error)
     }
   }
@@ -75,6 +79,7 @@ export default class UserDao {
       const userDTO = new UserDto(user)
       return userDTO
     } catch (error) {
+      loggerDev.error(error.message)
       throw new Error(error)
     }
   }

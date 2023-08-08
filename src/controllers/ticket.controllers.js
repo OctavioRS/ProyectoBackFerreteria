@@ -1,6 +1,6 @@
 import TicketService from "../services/ticket.services.js";
 import CartsDaoMongoDB from "../daos/mongo/carts.dao.js";
-
+import { loggerDev } from '../utils/loggers.js';
 
 const cartUser = new CartsDaoMongoDB()
 import { productModel } from "../daos/models/products.models.js";
@@ -64,6 +64,7 @@ export const ticketController = async (req, res, next) => {
     userCart.products = notPurchasedProducts;
     await cartUser.updateCart(userCart);
   } catch (error) {
+    loggerDev.error(error.message)
     return Httpresponse.ServerError(res, error)
   }
 };

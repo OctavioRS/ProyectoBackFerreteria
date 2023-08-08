@@ -1,4 +1,5 @@
 import { productModel } from "../models/products.models.js";
+import { loggerDev } from '../../utils/loggers.js';
 
 class ProductDaoMongoDB {
    
@@ -8,6 +9,7 @@ class ProductDaoMongoDB {
         return response
         
       } catch (error) {
+        loggerDev.error(error.message)
         throw new Error(error)
       }
     }
@@ -32,6 +34,7 @@ class ProductDaoMongoDB {
         const response = await productModel.paginate(query, options);
         return response;
       } catch (error) {
+        loggerDev.error(error.message)
         throw new Error(error)
       }
     }
@@ -42,6 +45,7 @@ class ProductDaoMongoDB {
         const response = await productModel.findById(id);
         return response
      } catch (error) {
+      loggerDev.error(error.message)
       throw new Error(error)
      }
     }
@@ -51,6 +55,7 @@ class ProductDaoMongoDB {
        await productModel.updateOne({_id: id}, obj)
        return obj
       } catch (error) {
+        loggerDev.error(error.message)
         throw new Error(error)
       }
     }
@@ -60,6 +65,7 @@ class ProductDaoMongoDB {
             const response = await productModel.findByIdAndDelete(id);
             return response
          } catch (error) {
+          loggerDev.error(error.message)
           throw new Error(error)
          }
     }
