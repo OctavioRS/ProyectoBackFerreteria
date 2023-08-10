@@ -1,5 +1,5 @@
 import ProductDaoMongoDB from "../daos/mongo/products.dao.js";
-import { loggerDev } from '../../utils/loggers.js';
+import { loggerDev } from "../utils/loggers.js";
 const prodDaoMongo = new ProductDaoMongoDB();
 
 export const getServices = async (page , limit, category , availability) => {

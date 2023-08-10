@@ -1,5 +1,5 @@
 import TicketDaoMongoDB from '../daos/mongo/ticket.dao.js';
-import { loggerDev } from '../../utils/loggers.js';
+import { loggerDev } from '../utils/loggers.js';
 
 const ticketDaoMongo = new TicketDaoMongoDB();
 class TicketService {

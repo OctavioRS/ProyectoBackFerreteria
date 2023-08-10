@@ -1,5 +1,5 @@
 import UserDao from '../daos/mongo/user.dao.js'
-import { loggerDev } from '../../utils/loggers.js';
+import { loggerDev } from '../utils/loggers.js';
 
 const usersDaoMongo = new UserDao();
 

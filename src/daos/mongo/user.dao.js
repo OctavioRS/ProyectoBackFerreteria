@@ -2,7 +2,7 @@ import { createHash, isValidPassword } from "../../path.js";
 import { userModel } from "../models/user.models.js"; 
 import { cartsModel } from "../models/carts.models.js";
 import UserDto from "../../dtos/user.dto.js";
-import { loggerDev } from '../../utils/loggers.js';
+import { loggerDev } from "../../utils/loggers.js";
 
 
 export default class UserDao {

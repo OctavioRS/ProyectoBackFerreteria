@@ -4,7 +4,7 @@ import { productModel } from '../daos/models/products.models.js';
 import { userModel } from '../daos/models/user.models.js';
 import ProductDaoMongoDB from '../daos/mongo/products.dao.js'
 import { HttpResponse } from '../utils/http.response.js';
-import { loggerDev } from '../../utils/loggers.js';
+import { loggerDev } from '../utils/loggers.js';
 const Httpresponse = new HttpResponse();
 
 const cartDaoMongo = new CartsDaoMongoDB();

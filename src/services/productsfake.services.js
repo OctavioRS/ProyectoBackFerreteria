@@ -1,6 +1,6 @@
 import { ProductsfakeModel } from '../daos/models/productsfake.models.js';
 import {generateProduct} from '../utils/utils.js'
-import { loggerDev } from '../../utils/loggers.js';
+import { loggerDev } from '../utils/loggers.js';
 
 export const createProductMock = async (cant = 100) => {
   try {
