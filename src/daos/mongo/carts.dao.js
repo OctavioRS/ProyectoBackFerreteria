@@ -35,12 +35,19 @@ class CartsDaoMongoDB {
     }
 
 
-    async addProductToCart(cid, pid) {
+    async addProductToCart(cid, pid, userId) {
         try {
             const cart = await cartsModel.findById(cid);
-            cart.products.push(pid);
-            cart.save()
+            const product = await productModel.findById(pid)
+            const user = await userModel.findById(userId)
 
+            if (user.role === 'premium' && product.owner === user.email) {
+                throw new Error('No se puede agregar un producto propio al carrito')
+            } else {
+                cart.products.push(pid);
+                cart.save()
+                return cart
+            }
         } catch (error) {
             loggerDev.error(error.message)
             throw new Error(error)
@@ -101,19 +108,19 @@ class CartsDaoMongoDB {
             await cart.save();
             return cart;
         } catch (error) {
-              loggerDev.error(error.message)
+            loggerDev.error(error.message)
             throw new Error("Error");
         }
     }
 
     async updateCart(cart) {
         try {
-        const updatedCart = await cartsModel.findByIdAndUpdate(cart._id, { products: cart.products }, { new: true });
-        return updatedCart;
-    } catch(error) {
-        loggerDev.error(error.message)
-        throw new Error('Error updating cart in the database');
-    }
+            const updatedCart = await cartsModel.findByIdAndUpdate(cart._id, { products: cart.products }, { new: true });
+            return updatedCart;
+        } catch (error) {
+            loggerDev.error(error.message)
+            throw new Error('Error updating cart in the database');
+        }
     }
 
     async getCartByUser(userId) {

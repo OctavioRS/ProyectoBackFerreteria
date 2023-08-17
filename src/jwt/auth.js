@@ -6,6 +6,7 @@ const userDao = new UserDao()
 const PRIVATE_KEY_JWT = config.private_key_jwt;
 
 export const generateToken = (user) =>{
+ 
     const payload = {
         userId: user._id,
         first_name: user.first_name,
@@ -14,6 +15,7 @@ export const generateToken = (user) =>{
         age: user.age,
         cart: user.cart,
         role: user.role
+        
     };
 
     const token = jwt.sign(payload, PRIVATE_KEY_JWT, {

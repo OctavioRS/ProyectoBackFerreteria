@@ -58,6 +58,7 @@ export const getController = async (req, res, next) => {
   export const createController = async (req, res, next) => {
     try {
       const { title, description, price, stock, code, status, category, thumbnails   } = req.body;
+      const userEmail = req.user.email
       const newDoc = await addServices({
         title,
         description,
@@ -66,7 +67,8 @@ export const getController = async (req, res, next) => {
         code,
         status,
         category,
-        thumbnails
+        thumbnails,
+        userEmail
       });
       res.json(newDoc);
     } catch (error) {
@@ -79,23 +81,42 @@ export const getController = async (req, res, next) => {
     try {
       const { id } = req.params;
       const { title, description, price, stock, status, category, thumbnails } = req.body;
-      await getServicesById(id);
-      const docUpd = await updateServices(id, {
-        title, description, price, stock, status, category, thumbnails
-      });
-      res.json(docUpd);
+  
+    
+      const product = await getServicesById(id);
+  
+    
+      if (req.user.role === 'admin' || req.user.email === product.owner) {
+        const docUpd = await updateServices(id, {
+          title, description, price, stock, status, category, thumbnails
+        });
+        res.json(docUpd);
+      } else {
+        return res.status(403).json({ message: 'Acceso no autorizado para modificar este producto.' });
+      }
     } catch (error) {
       next(error);
     }
   };
   
+  
   export const deleteController = async (req, res, next) => {
     try {
       const { id } = req.params;
-      await deleteServices(id);
-      res.json({message: 'Product deleted successfully!'})
+  
+     
+      const product = await getServicesById(id);
+  
+     
+      if (req.user.role === 'admin' || req.user.email === product.owner) {
+        await deleteServices(id);
+        res.json({ message: 'Product deleted successfully!' });
+      } else {
+        return res.status(403).json({ message: 'Acceso no autorizado para eliminar este producto.' });
+      }
     } catch (error) {
-      loggerDev.error(error.message)
+      loggerDev.error(error.message);
       next(error);
     }
   };
+  

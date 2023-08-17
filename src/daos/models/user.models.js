@@ -38,6 +38,10 @@ const usersSchema = new mongoose.Schema({
     type: Boolean,
     required: true,
     default: false
+  },
+  canCreateProducts: {
+    type: Boolean,
+    default: false
   }
 })
 

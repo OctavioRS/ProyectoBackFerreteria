@@ -13,6 +13,7 @@ export const getServices = async (page , limit, category , availability) => {
 }
 
 export const addServices = async (obj) => {
+
     try {
         const newProd = await prodDaoMongo.addProduct(obj)
         return newProd;

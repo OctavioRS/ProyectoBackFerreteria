@@ -11,11 +11,15 @@ const productSchema = new mongoose.Schema({
     stock: { type: Number, required: true },
     category: { type: String, required: true },
     thumbnails: { type: String, required: true },
-    
+    owner: { type: String, required: true, default: 'admin' }
 
 })
 
 productSchema.plugin(mongoosePaginate)
+
+productSchema.pre('find', function () {
+    this.populate('users')
+})
 
 export const productModel = mongoose.model('products',
     productSchema) 

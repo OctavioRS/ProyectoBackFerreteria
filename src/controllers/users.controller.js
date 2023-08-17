@@ -85,10 +85,10 @@ export const githubResponse = async(req, res, next)=>{
 
 export const register = async (req, res, next) => {
   try {
-    const { first_name, last_name, email, age, cart, password } = req.body;
+    const { first_name, last_name, email, age, cart, password, role } = req.body;
     const exist = await userDao.getByEmail(email);
     if (exist) return res.status(400).json({ msg: 'user already exists' });
-    const user = { first_name, last_name, email, age, password }
+    const user = { first_name, last_name, email, age, password, role }
     const newUser = await userDao.createUser(user);
     const token = generateToken(newUser);
     res.json({
