@@ -13,8 +13,6 @@ export const getController = async (req, res, next) => {
     try {
       const { page , limit, category , availability  } = req.query
      const docs = await getServices(page , limit, category, availability);
-     
-
      const status = "succes"
      const payload = docs.docs
      const totalPages = docs.totalPages
@@ -81,11 +79,7 @@ export const getController = async (req, res, next) => {
     try {
       const { id } = req.params;
       const { title, description, price, stock, status, category, thumbnails } = req.body;
-  
-    
       const product = await getServicesById(id);
-  
-    
       if (req.user.role === 'admin' || req.user.email === product.owner) {
         const docUpd = await updateServices(id, {
           title, description, price, stock, status, category, thumbnails
@@ -99,15 +93,10 @@ export const getController = async (req, res, next) => {
     }
   };
   
-  
   export const deleteController = async (req, res, next) => {
     try {
       const { id } = req.params;
-  
-     
       const product = await getServicesById(id);
-  
-     
       if (req.user.role === 'admin' || req.user.email === product.owner) {
         await deleteServices(id);
         res.json({ message: 'Product deleted successfully!' });

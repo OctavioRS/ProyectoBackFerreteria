@@ -5,6 +5,7 @@ import passport from 'passport';
 import { register, login, loginFront, privateRoute } from '../controllers/users.controller.js';
 import { getUserDtoController } from '../controllers/users.controller.js';
 import { checkAuth } from '../jwt/auth.js';
+import { changeStatusController } from '../controllers/changeStatusController.js';
 const router = Router()
 
 
@@ -28,11 +29,12 @@ router.post('/register', register);
 
 router.post('/login', login);
 
+router.put('/premium/:uid', changeStatusController)
+
 router.get('/private', checkAuth, privateRoute);
 
 router.get('/current', passport.authenticate('current'), (req , res) => {
     res.send (req.user)
-    
 })
 
 router.get('/dto/:id', getUserDtoController )

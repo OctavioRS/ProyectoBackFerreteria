@@ -40,8 +40,6 @@ export default class UserDao {
   }
 
 
-
-
   async loginUser(user) {
     try {
       const { email, password } = user;
@@ -89,6 +87,16 @@ export default class UserDao {
       const user = await userModel.findById(_id)
       const userDTO = new UserDto(user)
       return userDTO
+    } catch (error) {
+      loggerDev.error(error.message)
+      throw new Error(error)
+    }
+  }
+
+  async updateStatus(id, role){
+    try {
+     await userModel.updateOne({_id: id}, {role: role})
+     return role
     } catch (error) {
       loggerDev.error(error.message)
       throw new Error(error)
