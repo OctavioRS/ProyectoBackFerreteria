@@ -102,4 +102,14 @@ export default class UserDao {
       throw new Error(error)
     }
   }
+
+  async updatePass(id, password){
+    try {
+     await userModel.updateOne({_id: id}, {password: password})
+     return password
+    } catch (error) {
+      loggerDev.error(error.message)
+      throw new Error(error)
+    }
+  }
 }  

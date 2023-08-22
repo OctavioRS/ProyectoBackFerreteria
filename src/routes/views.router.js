@@ -22,6 +22,10 @@ router.get('/profile',(req,res)=>{
     res.render('profile')
 })
 
+router.get('/changepass', (req, res) => {
+   
+    res.render('changepass');
+});
 
 //// JWT ////
 

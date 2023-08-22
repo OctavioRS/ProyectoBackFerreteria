@@ -6,6 +6,8 @@ import { register, login, loginFront, privateRoute } from '../controllers/users.
 import { getUserDtoController } from '../controllers/users.controller.js';
 import { checkAuth } from '../jwt/auth.js';
 import { changeStatusController } from '../controllers/changeStatusController.js';
+import { updatePassController } from '../controllers/changePassControllers.js';
+import { sendMailEthereal } from '../controllers/changePassControllers.js';
 const router = Router()
 
 
@@ -38,5 +40,11 @@ router.get('/current', passport.authenticate('current'), (req , res) => {
 })
 
 router.get('/dto/:id', getUserDtoController )
+
+router.post('/changePassword' , sendMailEthereal  )
+
+router.post('/updatingPass', updatePassController)
+
+
 
 export default router
