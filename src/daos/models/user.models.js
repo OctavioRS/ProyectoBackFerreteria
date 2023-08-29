@@ -36,7 +36,6 @@ const usersSchema = new mongoose.Schema({
   },
   isGithub: {
     type: Boolean,
-    required: true,
     default: false
   },
   canCreateProducts: {

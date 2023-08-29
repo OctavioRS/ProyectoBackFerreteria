@@ -25,6 +25,9 @@ import './passport/github.js'
 import './db/database.js'
 import config from "./config.js";
 import { loggerDev, loggerProduction } from "./utils/loggers.js";
+import swaggerUI from 'swagger-ui-express'
+import swaggerJSDoc from 'swagger-jsdoc';
+import { info } from "./docs/info.js";
 
 
 const productManager = new ProductManager('../productos.json');
@@ -32,6 +35,9 @@ const productManager = new ProductManager('../productos.json');
 
 const app = express();
 const port = config.port || 8080;
+
+const specs = swaggerJSDoc(info);
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(specs));
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());

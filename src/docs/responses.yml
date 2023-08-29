@@ -1,0 +1,115 @@
+components:
+  schema:
+    Products:
+      Product:
+        type: object
+        properties:
+          title:
+            type: string
+            description: Nombre del producto
+          description:
+            type: string
+            description: Descripcion del producto
+          code:
+            type: string
+            description: Codigo del producto
+          price:
+            type: number
+            description: Precio del producto
+          status:
+            type: string
+            description: Estado del producto 
+          stock:
+            type: number
+            description: Cantidad en stock del producto
+          category:
+            type: string
+            description: Categoría del producto
+          thumbnails:
+            type: string
+            description: Lista de enlaces a imágenes miniatura del producto
+          owner:
+            type: string
+            description: propietario del producto
+        example:
+          title: Ejemplo de producto 1
+          description: Este es un ejemplo de producto con detalles ficticios 1.
+          code: PROD123
+          price: 99.99
+          status: disponible
+          stock: 50
+          category: Electrónica
+          thumbnails: https://example.com/thumbnail1.jpg
+          owner: a@mail.com
+      GetAllProducts:
+        type: array
+        items:
+          properties:
+            title:
+              type: string
+              description: Nombre del producto
+              example: Remera
+            description:
+              type: string
+              description: Descripcion del producto
+              example: Blanca
+            code:
+              type: string
+              description: Codigo del producto
+              example: "123"
+            price:
+              type: number
+              description: Precio del producto
+              example: 345
+            status:
+              type: string
+              description: Estado del producto
+              example: succes 
+            stock:
+              type: number
+              description: Cantidad en stock del producto
+              example: 34
+            category:
+              type: string
+              description: Categoría del producto
+              example: ropa
+            thumbnails:
+              type: string
+              description: Lista de enlaces a imágenes miniatura del producto
+              example: https://example.com/thumbnail1.jpg
+            owner:
+              type: string
+              description: propietario del producto
+              example: d@mail.com
+      ValidationSchemaError:
+        type: object
+        properties:
+          message:
+            type: string
+            description: Mensaje de error de validación de schema
+        example:
+          message: "El schema del producto no es válido"
+      NotFound:
+        type: object
+        properties:
+          message:
+            type: string
+            description: Mensaje de error de servidor
+          example:
+            message: Error de servidor
+      ErrorGetById:
+        type: object
+        properties:
+          message:
+            type: string
+            description: Mensaje de error no se encuentra producto
+          example:
+            message: No se encontró producto con id ----
+      DeleteById:
+        type: object
+        properties:
+          message:
+            type: string
+            description: Mensaje de éxito de eliminación de producto por ID
+        example:
+          message: "Producto eliminado exitosamente"

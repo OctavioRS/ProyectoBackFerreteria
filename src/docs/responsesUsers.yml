@@ -1,0 +1,116 @@
+components:
+  schema:
+    Users:
+      User:
+        type: object
+        properties:
+          first_name:
+            type: string
+            description: Nombre del usuario
+          last_name:
+            type: string
+            description: Apellido del usuario
+          email:
+            type: string
+            description: Email del usuario
+          age:
+            type: number
+            description: Edad del usuario
+          password:
+            type: string
+            description: Password del usuario
+          cart:
+            type: string
+            description: Carrito asociado al usuario
+          role:
+            type: string
+            description: Rol del usuario
+          isGithub:
+            type: boolean
+            description: Si se autenticó con GitHub
+          canCreateProducts:
+            type: boolean
+            description: Si está habilitado para crear productos
+        example:
+          first_name: "Ejemplo de nombre de usuario"
+          last_name: "Ejemplo de apellido de usuario"
+          email: "a@gmail.com"
+          age: 23
+          password: "123"
+          cart: "sakdjhaskjdhkasda"
+          role: "user"
+          isGithub: false
+          canCreateProducts: false
+ 
+      UserDto:
+        type: object
+        properties:
+          name:
+            type: string
+            description: Nombre del usuario
+          lastname:
+            type: string
+            description: Apellido del usuario
+          id:
+            type: string
+            description: ID del usuario
+          email:
+            type: string
+            description: Correo electrónico del usuario
+          cart:
+            type: string
+            description: Carrito asociado al usuario
+          role:
+            type: string
+            description: Rol del usuario
+        example:
+          name: Ejemplo de nombre de usuario
+          lastname: Ejemplo de apellido de usuario
+          id: abc123
+          email: a@example.com
+          cart: abcdef
+          role: user
+
+      Login:
+        type: object
+        properties:
+          message: 
+            type: string
+            example: " Login OK"
+          acces_token:
+            type: string
+            description: Devuelve el token del usuario generado por JWT
+            example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGVkZjRkNzYwNzMxMWFhN2QyZmQxNmQiLCJmaXJzdF9uYW1lIjoicGVyY2hlcm9uIiwibGFzdF9uYW1lIjoiY2FiYWxsbyIsImVtYWlsIjoicGVyY2hlcm9uQGdtYWlsLmNvbSIsImFnZSI6MjMsImNhcnQiOiI2NGVkZjRkNzYwNzMxMWFhN2QyZmQxNmYiLCJyb2xlIjoidXNlciIsImlhdCI6MTY5MzMyMTM3NywiZXhwIjoxNjkzMzI0MDc3fQ.bjknktGB1X6Aa04aVzWCBHPcMnhGlktGpRcVMYyXUzg"
+
+    ValidationSchemaError:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Mensaje de error de validación de schema
+      example:
+        message: "El schema del usuario no es válido"
+    NotFound:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Mensaje de error de servidor
+      example:
+        message: "Error de servidor"
+    ErrorGetById:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Mensaje de error no se encuentra usuario
+      example:
+        message: "No se encontró usuario con id ----"
+    DeleteById:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Mensaje de éxito de eliminación de usuario por ID
+      example:
+        message: "Usuario eliminado exitosamente"

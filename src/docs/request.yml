@@ -1,0 +1,54 @@
+components:
+  parameters:
+    schemas:
+      BodyProduct:
+        type: object
+        required: 
+          - title
+          - description
+          - code
+          - price
+          - status
+          - stock
+          - category
+          - thumbnails
+          - owner
+        properties:
+          title:
+            type: string
+            description: Nombre del producto
+          description:
+            type: string
+            description: Descripcion del producto
+          code:
+            type: string
+            description: Codigo del producto
+          price:
+            type: number
+            description: Precio del producto
+          status:
+            type: string
+            description: Estado del producto 
+          stock:
+            type: number
+            description: Cantidad en stock del producto
+          category:
+            type: string
+            description: Categoría del producto
+          thumbnails:
+            type: string
+            description: Lista de enlaces a imágenes miniatura del producto
+          owner:
+            type: string
+            description: propietario del producto
+        example:
+          title: "Ejemplo de producto"
+          description: "Este es un ejemplo de producto con detalles ficticios."
+          code: "PROD123"
+          price: 99.99
+          status: "disponible"
+          stock: 50
+          category: "Electrónica"
+          thumbnails: "https://example.com/thumbnail1.jpg"
+          owner: "a@mail.com"
+        

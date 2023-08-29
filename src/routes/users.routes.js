@@ -25,7 +25,6 @@ router.get('/register-github', passport.authenticate('github', { scope: [ 'user:
 
 ////// JWT  ////////
 
-router.post('/loginfront', loginFront);
 
 router.post('/register', register);
 
