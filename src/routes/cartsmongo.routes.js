@@ -24,7 +24,7 @@ router.get("/:cid", getCartByIdController);
 router.delete("/:cid/products/:pid", deleteProductCartController); 
 router.delete("/:cid", deleteAllProductsCartController);
 router.post("/", createCartController);
-router.post("/:cid/product/:pid", checkAuth, isUser, addProductToCartController);
+router.post("/:cid/product/:pid", checkAuth, addProductToCartController);
 router.put("/:cid/products/:pid", updateProductCartController);
 router.post('/:cid/purchase', checkAuth, ticketController)    
 router.post('/:cid/prueba', checkAuth, ticketController)
