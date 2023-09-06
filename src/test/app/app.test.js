@@ -121,10 +121,16 @@ describe('Tests integrales Cart', () => {
       {
         first_name: "vancho",
         last_name: "cacsa",
-        email: "vnb@mail.com",
+        email: "mnb@mail.com",
         password: "123",
         age: 2123,
         role: "admin"
+      }
+
+    const userCred =
+      {
+        email: "mnb@mail.com",
+        password: "123"
       }
     
 
@@ -135,26 +141,21 @@ describe('Tests integrales Cart', () => {
       expect(statusCode).toEqual(200);
       expect(typeof response.body).toBe('object');
       expect(statusCode).not.toBe(404)
+      
    
   })
-  /*
-    test('[GET] /carts/:cid', async () => {
-      const responsePost = await request(app).post('/carts')
-      const idPost = responsePost.body._id
-      const responseGet = await request(app).get(`/carts/${idPost}`)
-      const idGet = responseGet.body._id
-      const statusCode = responseGet.statusCode;
-      const idFake = 'dsadsdasdasd213dasda';
   
-      const responseGetById = await request(app).get(`/carts/${idGet}`);
+    test('[GET] /users/login', async () => {
+      const responsePost = await request(app).post('/users/login').send(userCred)
+   
+      const statusCode = responsePost.statusCode;
+    
       expect(statusCode).toEqual(200);
-      expect(typeof responseGetById.body).toBe('object');
+      expect(typeof responsePost.body).toBe('object');
       expect(statusCode).not.toBe(404)
-      const responseGetByIdFake = await request(app).get(`/carts/${idFake}`);
-          expect(responseGetByIdFake.statusCode).toBe(404);
-          expect(responseGetByIdFake.body.message).toEqual(`Not Found`)
+      
     })
-  */
+  
   })
 
 
