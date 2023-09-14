@@ -75,6 +75,7 @@ app.use('/carts', cartsmongoRouter)
 app.use('/users', usersRouter)
 app.use('/views', viewsRouter)
 app.use('/api/sessions', usersRouter )
+app.use('/api/users', usersRouter)
 app.use('/mockingproducts', prodfakeRouter)
 app.use('/loggerTest', loggerTestRouter)
 

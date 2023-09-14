@@ -41,9 +41,21 @@ const usersSchema = new mongoose.Schema({
   canCreateProducts: {
     type: Boolean,
     default: false
+  },
+  documents: [
+    {
+      name:{
+        type: String
+      },
+      reference:{
+        type: String
+      }
+    }
+  ],
+  last_conection: {
+    type: Date
   }
 })
-
 usersSchema.pre('find', function () {
   this.populate('carts');
 });

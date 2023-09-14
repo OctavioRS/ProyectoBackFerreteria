@@ -5,6 +5,35 @@ const userDao = new UserDao()
 import { getUserDto } from "../services/users.services.js";
 import { HttpResponse } from '../utils/http.response.js';
 import { loggerDev } from '../utils/loggers.js';
+import multer from 'multer';
+import { __dirname } from '../path.js';
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    let uploadDir;
+
+    if (file.fieldname === 'profileImage') {
+      uploadDir = __dirname + '/public/profiles';
+    } else if (file.fieldname === 'productImage') {
+      uploadDir = __dirname + '/public/products';
+    } else if (file.fieldname === 'documentFile') {
+      uploadDir = __dirname + '/public/documents';
+    } else {
+      // Manejo de caso no definido (puedes manejarlo como desees)
+      uploadDir = __dirname + '/public/unknown';
+    }
+
+    cb(null, uploadDir);
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, file.fieldname + '-' + uniqueSuffix);
+  },
+});
+
+export const multerField = multer({ storage });
+
+
 const Httpresponse = new HttpResponse();
 /*
 export const userController = async (req, res, next) => {
@@ -107,12 +136,16 @@ export const login = async (req, res, next) => {
     const { email, password } = req.body;
     const user = await userDao.loginUser({ email, password });
     if (!user) req.json({ msg: 'invalid credentials' });
+    const last_conection = user.last_connection = new Date();
+    user.save()
     const access_token = generateToken(user);
-    res.header('authorization', access_token).json({ msg: 'Login OK', access_token })
+    res.header('authorization', access_token).json({ msg: 'Login OK', access_token , last_conection })
   } catch (error) {
     next(error);
   }
 }
+
+
 export const privateRoute = async (req, res) => {
   const { first_name, last_name, email, role } = req.user;
   res.json({

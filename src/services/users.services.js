@@ -16,8 +16,8 @@ export const createUserService = async (user) => {
 
 export const loginUserService = async (user) => {
   try {
-   
     const data = await usersDaoMongo.loginUser(user);
+
    return data
 } catch (error) {
   loggerDev.error(error.message)
