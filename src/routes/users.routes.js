@@ -4,6 +4,7 @@ import passport from 'passport';
 //import { userController , loginController } from '../controllers/users.controller.js'
 import { register, login, loginFront, privateRoute } from '../controllers/users.controller.js';
 import { getUserDtoController } from '../controllers/users.controller.js';
+import { AllUsersDtoController } from '../controllers/allUsersDtoController.js';
 import { checkAuth } from '../jwt/auth.js';
 import { changeStatusController } from '../controllers/changeStatusController.js';
 import { updatePassController } from '../controllers/changePassControllers.js';
@@ -31,7 +32,7 @@ router.post('/register', register);
 
 router.post('/login', login);
 
-router.post('/:uid/documents', uploader.single('documentFile'), async (req, res) => {
+/*router.post('/:uid/documents', uploader.single('documentFile'), async (req, res) => {
     try {
       const { uid } = req.params;
       const { file } = req;
@@ -64,10 +65,12 @@ router.post('/:uid/documents', uploader.single('documentFile'), async (req, res)
     }
   });
   
-
+*/
 router.put('/premium/:uid', changeStatusController)
 
 router.get('/private', checkAuth, privateRoute);
+
+router.get('/get', AllUsersDtoController)
 
 router.get('/current', passport.authenticate('current'), (req , res) => {
     res.send (req.user)

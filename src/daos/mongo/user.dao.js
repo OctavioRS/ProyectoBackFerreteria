@@ -2,6 +2,7 @@ import { createHash, isValidPassword } from "../../path.js";
 import { userModel } from "../models/user.models.js";
 import { cartsModel } from "../models/carts.models.js";
 import UserDto from "../../dtos/user.dto.js";
+import AllUsersDto from "../../dtos/allUsersDto.js";
 import { loggerDev } from "../../utils/loggers.js";
 
 
@@ -86,6 +87,18 @@ export default class UserDao {
     try {
       const user = await userModel.findById(_id)
       const userDTO = new UserDto(user)
+      return userDTO
+    } catch (error) {
+      loggerDev.error(error.message)
+      throw new Error(error)
+    }
+  }
+
+  async getAllUsersDto() {
+    try {
+      const user = await userModel.find()
+      
+      const userDTO = user.map(user => new AllUsersDto(user));
       return userDTO
     } catch (error) {
       loggerDev.error(error.message)
