@@ -1,6 +1,10 @@
 import ProductDaoMongoDB from "../daos/mongo/products.dao.js";
+import UserDao from "../daos/mongo/user.dao.js";
 import { loggerDev } from "../utils/loggers.js";
+import { transporter } from "./email.services.js";
+import config from "../config.js";
 const prodDaoMongo = new ProductDaoMongoDB();
+const userDao = new UserDao();
 
 export const getServices = async (page , limit, category , availability) => {
     try {
@@ -58,3 +62,21 @@ export const deleteServices = async (id) => {
         throw new Error(error)
     }
 }
+
+export const mailPremium = async(user) => {
+    try {
+        const mailOptions = {
+            from: config.email_ethereal, 
+            to: user.email, 
+            subject: 'Se elimino tu producto',
+            text: `Hola ${user.first_name},\n\nTu producto fue eliminado.`, 
+        };
+  
+        
+        await transporter.sendMail(mailOptions);
+    } catch (error) {
+        console.error('Error al enviar el correo de aviso:', error);
+        throw new Error(error);
+    }
+  }
+  

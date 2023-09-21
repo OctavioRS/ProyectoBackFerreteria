@@ -18,6 +18,6 @@ router.get('/', getController);
 router.get('/:id', getByIdController);
 router.post('/', checkAuth, isPremiumOrAdmin, createController);
 router.put('/:id', checkAuth, isAdmin , updateController);
-router.delete('/:id',checkAuth, isAdmin, deleteController);
+router.delete('/:id',checkAuth, isPremiumOrAdmin, deleteController);
 
 export default router;

@@ -7,6 +7,8 @@ import {
 } from '../services/products.services.js';
 import { HttpResponse } from '../utils/http.response.js';
 import { loggerDev } from '../utils/loggers.js';
+import { mailPremium } from '../services/products.services.js';
+import config from '../config.js';
 const Httpresponse = new HttpResponse();
 
 export const getController = async (req, res, next) => {
@@ -97,7 +99,13 @@ export const getController = async (req, res, next) => {
     try {
       const { id } = req.params;
       const product = await getServicesById(id);
-      if (req.user.role === 'admin' || req.user.email === product.owner) {
+     
+      if (req.user.role === 'premium') {
+        
+        await mailPremium(req.user);
+       
+      }
+      if (req.user.role === 'admin' || req.user.role === 'premium' || req.user.email === product.owner) {
         await deleteServices(id);
         res.json({ message: 'Product deleted successfully!' });
       } else {
