@@ -5,6 +5,7 @@ const userDao = new UserDao()
 import { getUserDto } from "../services/users.services.js";
 import { HttpResponse } from '../utils/http.response.js';
 import { loggerDev } from '../utils/loggers.js';
+import { limpiarUsuariosInactivos } from "../services/users.services.js";
 import multer from 'multer';
 import { __dirname } from '../path.js';
 
@@ -185,4 +186,13 @@ export const getUserDtoController = async (req, res, next) => {
       loggerDev.error(error.message)
       return Httpresponse.NotFound(res, error)
   }
+}
+
+export const deleteIanctiveUsers = async (req, res, next) => {
+  try {
+    await limpiarUsuariosInactivos();
+    res.status(200).json({ message: 'La limpieza se ha completado exitosamente.' });
+} catch (error) {
+  loggerDev.error(error.message)
+}
 }

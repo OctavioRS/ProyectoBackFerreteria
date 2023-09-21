@@ -9,6 +9,7 @@ import { checkAuth } from '../jwt/auth.js';
 import { changeStatusController } from '../controllers/changeStatusController.js';
 import { updatePassController } from '../controllers/changePassControllers.js';
 import { sendMailEthereal } from '../controllers/changePassControllers.js';
+import { deleteIanctiveUsers } from '../controllers/users.controller.js';
 import { multerField } from '../controllers/users.controller.js';
 const router = Router()
 
@@ -71,6 +72,8 @@ router.put('/premium/:uid', changeStatusController)
 router.get('/private', checkAuth, privateRoute);
 
 router.get('/get', AllUsersDtoController)
+
+router.delete('/delete', deleteIanctiveUsers)
 
 router.get('/current', passport.authenticate('current'), (req , res) => {
     res.send (req.user)

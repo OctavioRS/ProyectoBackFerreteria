@@ -40,27 +40,31 @@ export default class UserDao {
     }
   }
 
-
   async loginUser(user) {
     try {
-      const { email, password } = user;
-      const userExist = await userModel.findOne({ email })
+        const { email, password } = user;
+        const userExist = await userModel.findOne({ email });
 
-      if (userExist) {
-        const isValid = isValidPassword(password, userExist);
-        if (!isValid) return false
-        else return userExist
-      } return false
+        if (userExist) {
+            const isValid = isValidPassword(password, userExist);
+            if (!isValid) return false;
+            
+            userExist.last_conection = new Date();
+            await userExist.save();
+
+            return userExist;
+        }
+        return false;
     } catch (error) {
-      loggerDev.error(error.message)
-      throw new Error(error)
+        loggerDev.error(error.message);
+        throw new Error(error);
     }
-  }
+}
+
 
   async getById(id) {
     try {
       const userExist = await userModel.findById(id)
-      // console.log(userExist);
       if (userExist) {
         return userExist
       } return false
@@ -73,7 +77,6 @@ export default class UserDao {
   async getByEmail(email) {
     try {
       const userExist = await userModel.findOne({ email });
-      console.log('user::::', userExist)
       if (userExist) {
         return userExist
       } return false
