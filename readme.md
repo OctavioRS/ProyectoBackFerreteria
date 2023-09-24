@@ -151,4 +151,23 @@ Permite a un usuario eliminar todos los productos de su carrito de compras.
 
 ### Agregar Producto a Carrito
 
-Permite a un usuario agregar un producto a su carrito de compr
+Permite a un usuario agregar un producto a su carrito de compras.
+
+- **Endpoint**: `/carts/:cid/product/:pid`
+- **Método HTTP**: POST
+
+### Actualizar Cantidad de Producto en Carrito
+
+Permite a un usuario actualizar la cantidad de un producto en su carrito de compras.
+
+- **Endpoint**: `/carts/:cid/products/:pid`
+- **Método HTTP**: PUT
+- **Parámetros del Body**:
+  - `quantity` (number): Nueva cantidad del producto en el carrito.
+Este formato debería facilitar la lectura y comprensión de la documentación de tu API en un README. Asegúrate de mantener la estructura y el formato al pegarlo en tu README.md.
+
+
+
+
+
+
