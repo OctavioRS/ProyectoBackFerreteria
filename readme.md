@@ -4,7 +4,7 @@ La API Ecommerce Córdoba es una plataforma diseñada para gestionar productos, 
 
 ## Información General
 
-- **URL Base**: `localhost:8080`
+- **URL Base**: `http://localhost:8080`
 
 ## Usuarios
 
