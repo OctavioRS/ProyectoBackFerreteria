@@ -164,7 +164,7 @@ Permite a un usuario actualizar la cantidad de un producto en su carrito de comp
 - **Método HTTP**: PUT
 - **Parámetros del Body**:
   - `quantity` (number): Nueva cantidad del producto en el carrito.
-Este formato debería facilitar la lectura y comprensión de la documentación de tu API en un README. Asegúrate de mantener la estructura y el formato al pegarlo en tu README.md.
+
 
 
 
