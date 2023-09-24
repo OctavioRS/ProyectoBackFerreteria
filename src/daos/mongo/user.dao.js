@@ -24,7 +24,7 @@ export default class UserDao {
             newUser = await userModel.create({ ...user, password: createHash(password) });
           }
 
-         
+
           const newCart = await cartsModel.create({ products: [] });
           newUser.cart = newCart._id;
           await newUser.save();
@@ -42,24 +42,24 @@ export default class UserDao {
 
   async loginUser(user) {
     try {
-        const { email, password } = user;
-        const userExist = await userModel.findOne({ email });
+      const { email, password } = user;
+      const userExist = await userModel.findOne({ email });
 
-        if (userExist) {
-            const isValid = isValidPassword(password, userExist);
-            if (!isValid) return false;
-            
-            userExist.last_conection = new Date();
-            await userExist.save();
+      if (userExist) {
+        const isValid = isValidPassword(password, userExist);
+        if (!isValid) return false;
 
-            return userExist;
-        }
-        return false;
+        userExist.last_conection = new Date();
+        await userExist.save();
+
+        return userExist;
+      }
+      return false;
     } catch (error) {
-        loggerDev.error(error.message);
-        throw new Error(error);
+      loggerDev.error(error.message);
+      throw new Error(error);
     }
-}
+  }
 
 
   async getById(id) {
@@ -100,7 +100,7 @@ export default class UserDao {
   async getAllUsersDto() {
     try {
       const user = await userModel.find()
-      
+
       const userDTO = user.map(user => new AllUsersDto(user));
       return userDTO
     } catch (error) {
@@ -109,20 +109,20 @@ export default class UserDao {
     }
   }
 
-  async updateStatus(id, role){
+  async updateStatus(id, role) {
     try {
-     await userModel.updateOne({_id: id}, {role: role})
-     return role
+      await userModel.updateOne({ _id: id }, { role: role })
+      return role
     } catch (error) {
       loggerDev.error(error.message)
       throw new Error(error)
     }
   }
 
-  async updatePass(id, password){
+  async updatePass(id, password) {
     try {
-     await userModel.updateOne({_id: id}, {password: password})
-     return password
+      await userModel.updateOne({ _id: id }, { password: password })
+      return password
     } catch (error) {
       loggerDev.error(error.message)
       throw new Error(error)

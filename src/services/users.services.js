@@ -48,10 +48,9 @@ export const limpiarUsuariosInactivos = async () => {
       });
 
       for (const usuario of usuariosInactivos) {
-          // Enviar correo de aviso
+  
           await this.enviarCorreoAviso(usuario);
 
-          // Eliminar el usuario
           await usuario.remove();
       }
   } catch (error) {
@@ -63,13 +62,12 @@ export const limpiarUsuariosInactivos = async () => {
 export const enviarCorreoAviso = async(usuario) => {
   try {
       const mailOptions = {
-          from: config.email_ethereal, // Dirección de correo del remitente
-          to: usuario.email, // Dirección de correo del destinatario (puedes personalizarlo)
+          from: config.email_ethereal,
+          to: usuario.email, 
           subject: 'Aviso de inactividad',
-          text: `Hola ${usuario.first_name},\n\nTu cuenta ha estado inactiva por un tiempo.`, // Contenido del correo
+          text: `Hola ${usuario.first_name},\n\nTu cuenta ha estado inactiva por un tiempo.`, 
       };
 
-      // Enviar el correo
       await transporter.sendMail(mailOptions);
   } catch (error) {
       console.error('Error al enviar el correo de aviso:', error);

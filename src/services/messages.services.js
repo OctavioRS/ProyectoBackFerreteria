@@ -19,7 +19,6 @@ export const sendMsg = async (obj) => {
     }
 }
 
-
 export const deleteMsg = async (id) => {
     try {
         const mssgDel = await messagesDaoMongo.deleteMessage(id)

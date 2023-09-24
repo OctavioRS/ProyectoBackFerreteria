@@ -140,7 +140,7 @@ export const login = async (req, res, next) => {
     const last_conection = user.last_connection = new Date();
     user.save()
     const access_token = generateToken(user);
-    res.header('authorization', access_token).json({ msg: 'Login OK', access_token , last_conection })
+    res.header('authorization', access_token).json({ msg: 'Login OK', access_token, last_conection })
   } catch (error) {
     next(error);
   }
@@ -169,22 +169,22 @@ export const loginFront = async (req, res, next) => {
     }
     const access_token = generateToken(user)
     res.cookie('token', access_token,
-      { httpOnly: true } 
+      { httpOnly: true }
     )
-      res.json({ msg: 'Login OK', access_token })
+    res.json({ msg: 'Login OK', access_token })
   } catch (error) {
     loggerDev.error(error.message)
     return Httpresponse.ServerError(res, error)
-}
+  }
 }
 export const getUserDtoController = async (req, res, next) => {
   try {
     const { id } = req.params
     const user = await getUserDto(id)
-     res.json(user)
-    } catch (error) {
-      loggerDev.error(error.message)
-      return Httpresponse.NotFound(res, error)
+    res.json(user)
+  } catch (error) {
+    loggerDev.error(error.message)
+    return Httpresponse.NotFound(res, error)
   }
 }
 
@@ -192,7 +192,7 @@ export const deleteIanctiveUsers = async (req, res, next) => {
   try {
     await limpiarUsuariosInactivos();
     res.status(200).json({ message: 'La limpieza se ha completado exitosamente.' });
-} catch (error) {
-  loggerDev.error(error.message)
-}
+  } catch (error) {
+    loggerDev.error(error.message)
+  }
 }

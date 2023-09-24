@@ -60,13 +60,12 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session())
-//app.use('/api/products' , productsRoute)
-//app.use('/api/carts' , cartRoute)
+
 
 app.engine('handlebars', handlebars.engine())
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'handlebars')
-//app.use('/', productViews)
+app.use('/productsView', productViews)
 
 app.use('/products', productmongoRouter)
 app.use('/messages', messagemongoRouter)

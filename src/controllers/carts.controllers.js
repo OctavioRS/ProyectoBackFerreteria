@@ -6,7 +6,7 @@ import {
     deleteProductCartService,
     updateProductCartService,
     deleteAllProductsCartService,
-    
+
 } from '../services/carts.services.js'
 
 import { loggerDev } from '../utils/loggers.js';
@@ -69,10 +69,10 @@ export const deleteProductCartController = async (req, res, next) => {
 
 export const updateProductCartController = async (req, res, next) => {
     try {
-       const {cid, pid} = req.params
-       const { quantity } = req.body
-       const product = await updateProductCartService(cid, pid , quantity)
-       res.json(product)
+        const { cid, pid } = req.params
+        const { quantity } = req.body
+        const product = await updateProductCartService(cid, pid, quantity)
+        res.json(product)
     } catch (error) {
         loggerDev.error(error.message)
         return Httpresponse.ServerError(res, error)

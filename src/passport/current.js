@@ -9,7 +9,7 @@ const strategyOptions = {
 };
 
 /* ------------------------------------ - ----------------------------------- */
-// extraer token desde cookies
+
 const cookieExtractor = (req) => {
     const token = req.cookies.token
     return token

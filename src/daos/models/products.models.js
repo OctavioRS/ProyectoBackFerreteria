@@ -17,9 +17,5 @@ const productSchema = new mongoose.Schema({
 
 productSchema.plugin(mongoosePaginate)
 
-/*productSchema.pre('find', function () {
-    this.populate('users')
-})*/
-
 export const productModel = mongoose.model('products',
     productSchema) 

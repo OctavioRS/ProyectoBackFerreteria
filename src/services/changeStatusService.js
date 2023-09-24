@@ -2,9 +2,6 @@ import UserDao from "../daos/mongo/user.dao.js";
 
 const userDao = new UserDao()
 
-
-
-// service.js
 export const changeStatusService = async (uid, newRole) => {
   try {
     const exist = await userDao.getById(uid);
@@ -12,7 +9,6 @@ export const changeStatusService = async (uid, newRole) => {
       throw new Error('User not found');
     }
     
-   
     if (newRole === 'premium') {
       exist.canCreateProducts = true;
       await exist.save();
