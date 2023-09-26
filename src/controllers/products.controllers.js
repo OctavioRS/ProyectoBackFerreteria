@@ -59,7 +59,7 @@ export const createController = async (req, res, next) => {
   try {
     const { title, description, price, stock, code, status, category, thumbnails } = req.body;
     const userEmail = req.user.email
-    const newDoc = await addServices({
+      const newDoc = await addServices({
       title,
       description,
       price,

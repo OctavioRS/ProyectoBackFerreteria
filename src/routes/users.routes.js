@@ -33,7 +33,7 @@ router.post('/register', register);
 
 router.post('/login', login);
 
-/*router.post('/:uid/documents', uploader.single('documentFile'), async (req, res) => {
+router.post('/:uid/documents', multerField.single('documentFile'), async (req, res) => {
     try {
       const { uid } = req.params;
       const { file } = req;
@@ -66,7 +66,7 @@ router.post('/login', login);
     }
   });
   
-*/
+
 router.put('/premium/:uid', changeStatusController)
 
 router.get('/private', checkAuth, privateRoute);

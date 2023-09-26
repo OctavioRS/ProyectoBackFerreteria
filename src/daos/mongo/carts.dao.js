@@ -34,26 +34,33 @@ class CartsDaoMongoDB {
         }
     }
 
-
-    async addProductToCart(cid, pid, userId) {
+    async addProductToCart(cid, pid, userId, quantity = 1) {
         try {
             const cart = await cartsModel.findById(cid);
-            const product = await productModel.findById(pid)
-            const user = await userModel.findById(userId)
-
+            console.log("🚀 ~ file: carts.dao.js:40 ~ CartsDaoMongoDB ~ addProductToCart ~ cart:", cart)
+            const product = await productModel.findById(pid);
+            const user = await userModel.findById(userId);
+    
             if (user.role === 'premium' && product.owner === user.email) {
-                throw new Error('No se puede agregar un producto propio al carrito')
-            } else {
-                cart.products.push(pid);
-                cart.save()
-                return cart
+                throw new Error('No se puede agregar un producto propio al carrito');
             }
+    
+            const existingProduct = cart.products.find((p) => p._id.toString() === pid.toString());
+    
+            if (existingProduct) {
+                existingProduct.quantity += quantity;
+            } else {
+                cart.products.push({ _id: pid, quantity: quantity });
+            }
+    
+            await cart.save();
+            return cart;
         } catch (error) {
-            loggerDev.error(error.message)
-            throw new Error(error)
+            loggerDev.error(error.message);
+            throw new Error(error);
         }
-    };
-
+    }
+    
     async deleteProductCart(cid, pid) {
         try {
             const cart = await cartsModel.findById(cid);
@@ -126,6 +133,7 @@ class CartsDaoMongoDB {
     async getCartByUser(userId) {
         try {
             const user = await userModel.findOne({ _id: userId }).populate('cart');
+            console.log("🚀 ~ file: carts.dao.js:135 ~ CartsDaoMongoDB ~ getCartByUser ~ user:", user)
             if (user) {
                 if (user.cart) {
                     return user.cart;

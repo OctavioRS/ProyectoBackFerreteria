@@ -48,7 +48,8 @@ export const createCartController = async (req, res, next) => {
 export const addProductToCartController = async (req, res, next) => {
     try {
         const { cid, pid } = req.params;
-        const product = await addProductToCartService(cid, pid);
+        const userId = req.user._id.toString()
+        const product = await addProductToCartService(cid, pid, userId);
         res.json(product)
     } catch (error) {
         loggerDev.error(error.message)

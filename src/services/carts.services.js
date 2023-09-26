@@ -42,9 +42,9 @@ export const createCartService = async () => {
   }
 }
 
-export const addProductToCartService = async (cid, pid) => {
+export const addProductToCartService = async (cid, pid, userId) => {
   try {
-    const doc = await cartDaoMongo.addProductToCart(cid, pid);
+    const doc = await cartDaoMongo.addProductToCart(cid, pid, userId);
     return doc;
   } catch (error) {
     loggerDev.error(error.message)

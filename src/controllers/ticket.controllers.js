@@ -22,6 +22,7 @@ function generateCode(length) {
 export const ticketController = async (req, res, next) => {
   try {
     const userCart = await cartUser.getCartByUser(req.user._id);
+    console.log("🚀 ~ file: ticket.controllers.js:25 ~ ticketController ~ userCart:", userCart)
 
     if (!userCart || !Array.isArray(userCart.products)) {
       return res.status(400).json({ error: 'Invalid cart or products' });
